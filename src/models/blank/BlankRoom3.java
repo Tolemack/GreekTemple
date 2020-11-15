@@ -5,7 +5,10 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+import models.blank.helpers.BlankRoomWall;
 import models.blank.helpers.BlankWindow;
+
+import java.util.HashMap;
 
 public class BlankRoom3 extends BlankThing{
     float wall_thickness = BlankWall.getWall_thickness();
@@ -14,13 +17,7 @@ public class BlankRoom3 extends BlankThing{
     float height;
     float width;
 
-    BlankWall roof;
-    BlankWall leftWall;
-    BlankWall rightWall;
-    BlankWall backWall;
-    BlankWall frontWall;
-
-    //HashMap<String, Boolean> wallsToDraw;
+    HashMap<String, BlankRoomWall> roomWalls;
 
     public BlankRoom3(AssetManager assetManager, float length, float height, float width) {
         super(assetManager);
@@ -31,18 +28,33 @@ public class BlankRoom3 extends BlankThing{
 
         node = new Node("BlankRoom");
 
-        this.roof = new BlankWall(assetManager, length, width);
-        this.leftWall = new BlankWall(assetManager, width, height-wall_thickness);
-        this.rightWall = new BlankWall(assetManager, width, height-wall_thickness);
-        this.backWall = new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness);
-        this.frontWall = new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness);
+        BlankRoomWall roof = new BlankRoomWall(assetManager,"roof",
+                new BlankWall(assetManager, length, width));
+        roof.setTranslation(new Vector3f(0,height-wall_thickness/2,width/2));
+        roof.setRotation(new Quaternion().fromAngles((float)(-90*Math.PI/180),0,0));
+        BlankRoomWall leftWall = new BlankRoomWall(assetManager,"leftWall",
+                new BlankWall(assetManager, width, height-wall_thickness));
+        leftWall.setTranslation(new Vector3f(-length/2+wall_thickness/2,0,0));
+        leftWall.setRotation(new Quaternion().fromAngles(0,(float)(-90*Math.PI/180),0));
+        BlankRoomWall rightWall = new BlankRoomWall(assetManager,"rightWall",
+                new BlankWall(assetManager, width, height-wall_thickness));
+        rightWall.setTranslation(new Vector3f(length/2-wall_thickness/2,0,0));
+        rightWall.setRotation(new Quaternion().fromAngles(0,(float)(90*Math.PI/180),0));
+        BlankRoomWall backWall = new BlankRoomWall(assetManager,"backWall",
+                new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness));
+        backWall.setTranslation(new Vector3f(0,0,-width/2+wall_thickness/2));
+        backWall.setRotation(new Quaternion().fromAngles(0,0,0));
+        BlankRoomWall frontWall = new BlankRoomWall(assetManager,"frontWall",
+                new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness));
+        frontWall.setTranslation(new Vector3f(0,0,width/2-wall_thickness/2));
+        frontWall.setRotation(new Quaternion().fromAngles(0,0,0));
 
-        /*this.wallsToDraw = new HashMap<String, Boolean>();
-        this.wallsToDraw.put("roof", true);
-        this.wallsToDraw.put("leftWall", true);
-        this.wallsToDraw.put("rightWall", true);
-        this.wallsToDraw.put("backWall", true);
-        this.wallsToDraw.put("frontWall", true);*/
+        this.roomWalls = new HashMap<String, BlankRoomWall>();
+        this.roomWalls.put(roof.getName(), roof);
+        this.roomWalls.put(leftWall.getName(), leftWall);
+        this.roomWalls.put(rightWall.getName(), rightWall);
+        this.roomWalls.put(backWall.getName(), backWall);
+        this.roomWalls.put(frontWall.getName(), frontWall);
 
     }
 
@@ -51,39 +63,28 @@ public class BlankRoom3 extends BlankThing{
         float windowPositionY = window.getPosition().getY();
         switch(wall){
             case "leftWall":
-                this.leftWall.addWindow(window);
+                this.roomWalls.get("leftWall").addWindow(window);
                 break;
             case "rightWall":
-                this.rightWall.addWindow(window);
+                this.roomWalls.get("rightWall").addWindow(window);
                 break;
             case "backWall":
                 windowPositionX-=wall_thickness;
                 window.setPosition(new Vector2f(windowPositionX,windowPositionY));
-                this.backWall.addWindow(window);
+                this.roomWalls.get("backWall").addWindow(window);
                 break;
             case "frontWall":
                 windowPositionX-=wall_thickness;
                 window.setPosition(new Vector2f(windowPositionX,windowPositionY));
-                this.frontWall.addWindow(window);
+                this.roomWalls.get("frontWall").addWindow(window);
                 break;
             default:
-                this.roof.addWindow(window);
+                this.roomWalls.get("roof").addWindow(window);
         }
     }
 
     private BlankWall getBlankWallByName(String wall){
-        switch(wall){
-            case "leftWall":
-                return this.leftWall;
-            case "rightWall":
-                return this.rightWall;
-            case "backWall":
-                return this.backWall;
-            case "frontWall":
-                return this.frontWall;
-            default:
-                return this.roof;
-        }
+        return this.roomWalls.get(wall);
     }
 
     public void draw(){
@@ -91,11 +92,9 @@ public class BlankRoom3 extends BlankThing{
         node = new Node("BlankRoom");
 
         //Draw walls
-        this.roof.draw();
-        this.leftWall.draw();
-        this.rightWall.draw();
-        this.frontWall.draw();
-        this.backWall.draw();
+        for(BlankRoomWall brw : this.roomWalls.values()){
+            brw.draw();
+        }
 
         //Node pour les walls
         Node roofNode = new Node("roof");
@@ -105,21 +104,11 @@ public class BlankRoom3 extends BlankThing{
         Node frontWallNode = new Node("frontWall");
 
         //Attacher les walls aux NodeWall
-        roofNode.attachChild(roof.getNode());
-        leftWallNode.attachChild(leftWall.getNode());
-        rightWallNode.attachChild(rightWall.getNode());
-        backWallNode.attachChild(backWall.getNode());
-        frontWallNode.attachChild(frontWall.getNode());
-
-        //Déplacer les walls
-        roofNode.setLocalTranslation(new Vector3f(0,height-wall_thickness/2,width/2));
-        roofNode.setLocalRotation(new Quaternion().fromAngles((float)(-90*Math.PI/180),0,0));
-        leftWallNode.setLocalTranslation(new Vector3f(-length/2+wall_thickness/2,0,0));
-        leftWallNode.setLocalRotation(new Quaternion().fromAngles(0,(float)(-90*Math.PI/180),0));
-        rightWallNode.setLocalTranslation(new Vector3f(length/2-wall_thickness/2,0,0));
-        rightWallNode.setLocalRotation(new Quaternion().fromAngles(0,(float)(90*Math.PI/180),0));
-        backWallNode.setLocalTranslation(new Vector3f(0,0,-width/2+wall_thickness/2));
-        frontWallNode.setLocalTranslation(new Vector3f(0,0,width/2-wall_thickness/2));
+        roofNode.attachChild(this.roomWalls.get("roof").getNode());
+        leftWallNode.attachChild(this.roomWalls.get("leftWall").getNode());
+        rightWallNode.attachChild(this.roomWalls.get("rightWall").getNode());
+        backWallNode.attachChild(this.roomWalls.get("backWall").getNode());
+        frontWallNode.attachChild(this.roomWalls.get("frontWall").getNode());
 
         //Attacher les NodeWalls au NodeMain
         node.attachChild(roofNode);
@@ -127,6 +116,12 @@ public class BlankRoom3 extends BlankThing{
         node.attachChild(rightWallNode);
         node.attachChild(backWallNode);
         node.attachChild(frontWallNode);
+
+        //Appliquer les translations et rotations respectives
+        for(BlankRoomWall brw : this.roomWalls.values()){
+            this.node.getChild(brw.getName()).setLocalTranslation(brw.getTranslation());
+            this.node.getChild(brw.getName()).setLocalRotation(brw.getRotation());
+        }
     }
 
     /*public void amputeWall(String wall){

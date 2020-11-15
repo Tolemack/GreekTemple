@@ -59,17 +59,14 @@ public class HelloJME3 extends SimpleApplication {
         BlankWall wall = new BlankWall(assetManager, 6.0f, 3, windows);
         //wall.setBlankShaded(assetManager);*/
 
-        //BlankRoom2
-        BlankRoom2 room2 = new BlankRoom2(assetManager, 5, 3, 3);
-        room2.addWindow("frontWall", new BlankWindow(2,1,new Vector2f(3.5f,1.5f)));
-        room2.addWindow("frontWall", new BlankWindow(1,2,new Vector2f(1,1)));
-        room2.draw();
-        room2.setMulticolorShaded(assetManager);
+        //BlankRoom3
+        BlankRoom3 room3 = new BlankRoom3(assetManager, 5, 3, 3);
+        room3.addWindow("frontWall", new BlankWindow(2,1,new Vector2f(3.5f,1.5f)));
+        room3.addWindow("frontWall", new BlankWindow(1,2,new Vector2f(1,1)));
+        room3.draw();
+        room3.setMulticolorShaded(assetManager);
 
-        BlankAubinPd aubinPd = new BlankAubinPd(assetManager);
-
-        rootNode.attachChild(room2.getNode());
-        rootNode.attachChild(aubinPd.getNode());
+        rootNode.attachChild(room3.getNode());
     }
 
     private void setLighting(){

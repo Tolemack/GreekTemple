@@ -1,15 +1,23 @@
 package models.blank.helpers;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import models.blank.BlankWall;
 
-public class BlankRoomWall {
+public class BlankRoomWall extends BlankWall{
     private String name;
-    private BlankWall blankwall;
     private Vector3f translation;
     private Quaternion rotation;
     private boolean draw;
+
+    public BlankRoomWall(AssetManager assetManager, String name, BlankWall blankWall){
+        super(assetManager, blankWall.getWidth(), blankWall.getHeight());
+        this.name=name;
+        this.translation = new Vector3f(0,0,0);
+        this.rotation = new Quaternion().fromAngles(0,0,0);
+        this.draw = true;
+    }
 
     public String getName() {
         return name;
@@ -17,14 +25,6 @@ public class BlankRoomWall {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public BlankWall getBlankwall() {
-        return blankwall;
-    }
-
-    public void setBlankwall(BlankWall blankwall) {
-        this.blankwall = blankwall;
     }
 
     public Vector3f getTranslation() {
