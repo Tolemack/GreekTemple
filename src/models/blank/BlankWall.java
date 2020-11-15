@@ -1,3 +1,5 @@
+//TODO : Optimiser le modele en remplaçant les box par des polygones
+//TODO : Ampute les coordonnées d'une fenetre si elle dépasse
 package models.blank;
 
 import com.jme3.asset.AssetManager;
@@ -15,7 +17,7 @@ public class BlankWall extends BlankThing{
 
     private float height;
     private float width;
-    ArrayList<BlankWindow> windows;
+    private ArrayList<BlankWindow> windows;
 
     Comparator<Float> FloatComparator = new Comparator<Float>() {
         @Override
@@ -29,12 +31,12 @@ public class BlankWall extends BlankThing{
 
         this.setHeight(height);
         this.setWidth(width);
-        this.windows = new ArrayList<BlankWindow>();
+        this.setWindows(new ArrayList<BlankWindow>());
     }
 
     public BlankWall(AssetManager assetManager, float width, float height, ArrayList<BlankWindow> windows){
         this(assetManager, width, height);
-        this.windows = windows;
+        this.setWindows(windows);
         this.draw();
     }
 
@@ -43,7 +45,7 @@ public class BlankWall extends BlankThing{
     }
 
     public void addWindow(BlankWindow window) {
-        this.windows.add(window);
+        this.getWindows().add(window);
     }
 
     public void draw(){
@@ -64,8 +66,8 @@ public class BlankWall extends BlankThing{
         points_Y.add(wall_point_top_Y);
         points_Y.add(wall_point_bottom_Y);
 
-        for(int index_window=0; index_window<this.windows.size(); index_window++) {
-            BlankWindow window = this.windows.get(index_window);
+        for(int index_window = 0; index_window< this.getWindows().size(); index_window++) {
+            BlankWindow window = this.getWindows().get(index_window);
             float windowPositionX = window.getPosition().getX() - this.getWidth() / 2;
             float windowPositionY = window.getPosition().getY();
             float window_point_right_X = windowPositionX - window.getWidth() / 2;
@@ -143,5 +145,13 @@ public class BlankWall extends BlankThing{
 
     public void setWidth(float width) {
         this.width = width;
+    }
+
+    public ArrayList<BlankWindow> getWindows() {
+        return windows;
+    }
+
+    public void setWindows(ArrayList<BlankWindow> windows) {
+        this.windows = windows;
     }
 }

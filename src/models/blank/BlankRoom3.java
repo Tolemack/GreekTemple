@@ -8,6 +8,7 @@ import com.jme3.scene.Node;
 import models.blank.helpers.BlankRoomWall;
 import models.blank.helpers.BlankWindow;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BlankRoom3 extends BlankThing{
@@ -43,7 +44,7 @@ public class BlankRoom3 extends BlankThing{
         BlankRoomWall backWall = new BlankRoomWall(assetManager,"backWall",
                 new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness));
         backWall.setTranslation(new Vector3f(0,0,-width/2+wall_thickness/2));
-        backWall.setRotation(new Quaternion().fromAngles(0,0,0));
+        backWall.setRotation(new Quaternion().fromAngles(0,(float)(180*Math.PI/180),0));
         BlankRoomWall frontWall = new BlankRoomWall(assetManager,"frontWall",
                 new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness));
         frontWall.setTranslation(new Vector3f(0,0,width/2-wall_thickness/2));
@@ -124,13 +125,48 @@ public class BlankRoom3 extends BlankThing{
         }
     }
 
-    /*public void amputeWall(String wall){
-        switch(wall){
-            case "leftWall":
-            case "rightWall":
-            case "backWall":
-            case "frontWall":
-            default:
+    public void amputeWall(String wall){
+
+        this.roomWalls.get(wall).setDraw(false);
+
+        if(wall.equals("leftWall") || wall.equals("rightWall")){
+            float multiply = 1;
+            if(wall.equals("rightWall")){
+                multiply = -1;
+            }
+
+            BlankRoomWall brwFrontWall = this.roomWalls.get("frontWall");
+            brwFrontWall.setWidth(brwFrontWall.getWidth()+wall_thickness);
+            brwFrontWall.setTranslation(
+                    brwFrontWall.getTranslation().add(-wall_thickness/2*multiply,0,0)
+            );
+            ArrayList<BlankWindow> brwFrontWallWindows = brwFrontWall.getWindows();
+            for(BlankWindow brwWindow : brwFrontWallWindows){
+                brwWindow.setPosition(
+                    brwWindow.getPosition().add(new Vector2f(wall_thickness*multiply,0))
+                );
+            }
+
+            BlankRoomWall brwBackWall = this.roomWalls.get("backWall");
+            brwBackWall.setWidth(brwBackWall.getWidth()+wall_thickness);
+            brwBackWall.setTranslation(
+                    brwBackWall.getTranslation().add(-wall_thickness/2*multiply,0,0)
+            );
+            for(BlankWindow brwWindow : brwFrontWallWindows){
+                brwWindow.setPosition(
+                    brwWindow.getPosition().add(new Vector2f(-wall_thickness*multiply,0))
+                );
+            }
         }
-    }*/
+        if(wall.equals("roof")){
+            BlankRoomWall brwFrontWall = this.roomWalls.get("frontWall");
+            BlankRoomWall brwBackWall = this.roomWalls.get("backWall");
+            BlankRoomWall brwLeftWall = this.roomWalls.get("leftWall");
+            BlankRoomWall brwRightWall = this.roomWalls.get("rightWall");
+            brwFrontWall.setHeight(brwFrontWall.getHeight()+wall_thickness);
+            brwBackWall.setHeight(brwBackWall.getHeight()+wall_thickness);
+            brwLeftWall.setHeight(brwLeftWall.getHeight()+wall_thickness);
+            brwRightWall.setHeight(brwRightWall.getHeight()+wall_thickness);
+        }
+    }
 }

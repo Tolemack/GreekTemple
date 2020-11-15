@@ -50,4 +50,12 @@ public class BlankRoomWall extends BlankWall{
     public void setDraw(boolean draw) {
         this.draw = draw;
     }
+
+    @Override
+    public void draw(){
+        if(this.draw){
+            super.draw();
+        }
+    }
 }
+
