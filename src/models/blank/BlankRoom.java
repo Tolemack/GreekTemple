@@ -14,6 +14,11 @@ import models.blank.helpers.BlankWindow;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+    Pièce simple sans fenetres
+    Enlever un mur revient juste à supprimer le BlankWall
+ */
+
 public class BlankRoom extends BlankThing{
     static float wall_thickness = 0.1f;
 

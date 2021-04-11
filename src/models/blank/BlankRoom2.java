@@ -12,6 +12,11 @@ import models.blank.helpers.BlankWindow;
 
 import java.util.HashMap;
 
+/*
+    Salle avec des fenetres
+    Impossible d'enlever un mur
+ */
+
 public class BlankRoom2 extends BlankThing{
     float wall_thickness = BlankWall.getWall_thickness();
 

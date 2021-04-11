@@ -11,7 +11,7 @@ import com.jme3.scene.Spatial;
 import java.util.Random;
 
 public class BlankThing {
-    Node node;
+    public Node node;
     Material blankUnshaded;
     Material blankShaded;
 
