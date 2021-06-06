@@ -25,8 +25,8 @@ public class BlankRoom3 extends BlankThing{
 
     HashMap<String, BlankRoomWall> roomWalls;
 
-    public BlankRoom3(AssetManager assetManager, float length, float height, float width) {
-        super(assetManager);
+    public BlankRoom3(float length, float height, float width) {
+        super();
 
         this.length = length;
         this.height = height;
@@ -34,24 +34,24 @@ public class BlankRoom3 extends BlankThing{
 
         node = new Node("BlankRoom");
 
-        BlankRoomWall roof = new BlankRoomWall(assetManager,"roof",
-                new BlankWall(assetManager, length, width));
+        BlankRoomWall roof = new BlankRoomWall("roof",
+                new BlankWall(length, width));
         roof.setTranslation(new Vector3f(0,height-wall_thickness/2,width/2));
         roof.setRotation(new Quaternion().fromAngles((float)(-90*Math.PI/180),0,0));
-        BlankRoomWall leftWall = new BlankRoomWall(assetManager,"leftWall",
-                new BlankWall(assetManager, width, height-wall_thickness));
+        BlankRoomWall leftWall = new BlankRoomWall("leftWall",
+                new BlankWall(width, height-wall_thickness));
         leftWall.setTranslation(new Vector3f(-length/2+wall_thickness/2,0,0));
         leftWall.setRotation(new Quaternion().fromAngles(0,(float)(-90*Math.PI/180),0));
-        BlankRoomWall rightWall = new BlankRoomWall(assetManager,"rightWall",
-                new BlankWall(assetManager, width, height-wall_thickness));
+        BlankRoomWall rightWall = new BlankRoomWall("rightWall",
+                new BlankWall(width, height-wall_thickness));
         rightWall.setTranslation(new Vector3f(length/2-wall_thickness/2,0,0));
         rightWall.setRotation(new Quaternion().fromAngles(0,(float)(90*Math.PI/180),0));
-        BlankRoomWall backWall = new BlankRoomWall(assetManager,"backWall",
-                new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness));
+        BlankRoomWall backWall = new BlankRoomWall("backWall",
+                new BlankWall(length-wall_thickness*2, height-wall_thickness));
         backWall.setTranslation(new Vector3f(0,0,-width/2+wall_thickness/2));
         backWall.setRotation(new Quaternion().fromAngles(0,(float)(180*Math.PI/180),0));
-        BlankRoomWall frontWall = new BlankRoomWall(assetManager,"frontWall",
-                new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness));
+        BlankRoomWall frontWall = new BlankRoomWall("frontWall",
+                new BlankWall(length-wall_thickness*2, height-wall_thickness));
         frontWall.setTranslation(new Vector3f(0,0,width/2-wall_thickness/2));
         frontWall.setRotation(new Quaternion().fromAngles(0,0,0));
 

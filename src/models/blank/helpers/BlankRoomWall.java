@@ -11,8 +11,8 @@ public class BlankRoomWall extends BlankWall{
     private Quaternion rotation;
     private boolean draw;
 
-    public BlankRoomWall(AssetManager assetManager, String name, BlankWall blankWall){
-        super(assetManager, blankWall.getWidth(), blankWall.getHeight());
+    public BlankRoomWall(String name, BlankWall blankWall){
+        super(blankWall.getWidth(), blankWall.getHeight());
         this.name=name;
         this.translation = new Vector3f(0,0,0);
         this.rotation = new Quaternion().fromAngles(0,0,0);

@@ -26,8 +26,8 @@ public class BlankRoom extends BlankThing{
     float height;
     float width;
 
-    public BlankRoom(AssetManager assetManager, float length, float height, float width) {
-        super(assetManager);
+    public BlankRoom(float length, float height, float width) {
+        super();
 
         this.length = length;
         this.height = height;

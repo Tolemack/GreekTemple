@@ -17,14 +17,14 @@ public class BlankRoof extends BlankThing{
     float width;
     float height;
 
-    public BlankRoof(AssetManager assetManager, float length, float width, float height) {
-        super(assetManager);
+    public BlankRoof(float length, float width, float height) {
+        super();
         this.length = length;
         this.width = width;
         this.height = height;
         this.setRoofAngle((float)Math.toRadians(45.0f));
 
-        this.createMesh2(assetManager);
+        this.createMesh2();
     }
 
     public void setRoofAngle(float angle){
@@ -39,7 +39,7 @@ public class BlankRoof extends BlankThing{
         return (float)Math.sqrt(Math.pow(this.height,2)*Math.pow(this.width/2,2));
     }
 
-    public void createMesh(AssetManager assetManager){
+    public void createMesh(){
         Mesh mesh = new Mesh();
         Vector3f[] vertices = new Vector3f[6];
         vertices[0] = new Vector3f(0,0,-this.width/2);
@@ -73,16 +73,13 @@ public class BlankRoof extends BlankThing{
         mesh.updateBound();
 
         Geometry geo = new Geometry("OurMesh", mesh); // using our custom mesh object
-        Material mat = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        geo.setMaterial(mat);
+        geo.setMaterial(this.blankUnshaded);
 
         this.node.attachChild(geo);
-        this.setMulticolorShaded(assetManager);
+        //this.setMulticolorShaded(assetManager);
     }
 
-    public void createMesh2(AssetManager assetManager){
+    public void createMesh2(){
         Mesh mesh = new Mesh();
         Vector3f[] vertices = new Vector3f[14];
         vertices[0] = new Vector3f(0,0,-this.width/2);
@@ -128,13 +125,10 @@ public class BlankRoof extends BlankThing{
         mesh.updateBound();
 
         Geometry geo = new Geometry("OurMesh", mesh); // using our custom mesh object
-        Material mat = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        geo.setMaterial(mat);
+        geo.setMaterial(blankShaded);
 
         this.node.attachChild(geo);
         this.node.setLocalRotation(new Quaternion().fromAngles(0,3.14f/4,0));
-        this.setMulticolorShaded(assetManager);
+        this.setBlankShaded();
     }
 }

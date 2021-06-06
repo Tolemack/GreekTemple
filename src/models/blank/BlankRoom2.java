@@ -32,8 +32,8 @@ public class BlankRoom2 extends BlankThing{
 
     //HashMap<String, Boolean> wallsToDraw;
 
-    public BlankRoom2(AssetManager assetManager, float length, float height, float width) {
-        super(assetManager);
+    public BlankRoom2(float length, float height, float width) {
+        super();
 
         this.length = length;
         this.height = height;
@@ -41,11 +41,11 @@ public class BlankRoom2 extends BlankThing{
 
         node = new Node("BlankRoom");
 
-        this.roof = new BlankWall(assetManager, length, width);
-        this.leftWall = new BlankWall(assetManager, width, height-wall_thickness);
-        this.rightWall = new BlankWall(assetManager, width, height-wall_thickness);
-        this.backWall = new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness);
-        this.frontWall = new BlankWall(assetManager, length-wall_thickness*2, height-wall_thickness);
+        this.roof = new BlankWall(length, width);
+        this.leftWall = new BlankWall(width, height-wall_thickness);
+        this.rightWall = new BlankWall(width, height-wall_thickness);
+        this.backWall = new BlankWall(length-wall_thickness*2, height-wall_thickness);
+        this.frontWall = new BlankWall(length-wall_thickness*2, height-wall_thickness);
 
         /*this.wallsToDraw = new HashMap<String, Boolean>();
         this.wallsToDraw.put("roof", true);

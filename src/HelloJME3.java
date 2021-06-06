@@ -10,6 +10,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
+import materials.BasicMaterials;
 import models.blank.*;
 import models.blank.helpers.BlankWindow;
 
@@ -40,9 +41,12 @@ public class HelloJME3 extends SimpleApplication {
     }
 
     private void setScene(){
+        //Load Materials
+        BasicMaterials basicMaterials = new BasicMaterials(this.getAssetManager());
+
         //Skybox
-        SkyboxRoom roomSky = new SkyboxRoom(assetManager, 50,50,50);
-        roomSky.putSimpleDummyGrass(assetManager);
+        SkyboxRoom roomSky = new SkyboxRoom(50,50,50);
+        roomSky.putSimpleDummyGrass();
         rootNode.attachChild(roomSky.getNode());
 
         //Scene
@@ -72,7 +76,7 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.attachChild(room3.getNode());*/
 
         //BlankRoof
-        BlankRoof br = new BlankRoof(assetManager, 5,3,3);
+        BlankRoof br = new BlankRoof(5,3,3);
         rootNode.attachChild(br.getNode());
     }
 

@@ -7,6 +7,7 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import materials.BasicMaterials;
 
 import java.util.Random;
 
@@ -15,18 +16,12 @@ public class BlankThing {
     Material blankUnshaded;
     Material blankShaded;
 
-    public BlankThing(AssetManager assetManager){
+    public BlankThing(){
         this.node = new Node("Thing");
 
-        Material blankUnshaded = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        blankUnshaded.setColor("Color", ColorRGBA.Gray);
-        this.blankUnshaded = blankUnshaded;
+        this.blankUnshaded = BasicMaterials.blankUnshaded;
 
-        Material blankShaded = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        blankShaded.setBoolean("UseMaterialColors", true);
-        blankShaded.setColor("Ambient", ColorRGBA.Gray);
-        blankShaded.setColor("Diffuse", ColorRGBA.Gray);
-        this.blankShaded = blankShaded;
+        this.blankShaded = BasicMaterials.blankShaded;
     }
 
     public Node getNode() {
@@ -40,7 +35,7 @@ public class BlankThing {
         }
     }
 
-    public void setBlankShaded(AssetManager assetManager){
+    public void setBlankShaded(){
         for(int i=0; i<this.getNode().getChildren().size(); i++){
             Geometry child = (Geometry)this.getNode().getChild(i);
             child.setMaterial(this.blankShaded);

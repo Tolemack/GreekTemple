@@ -7,15 +7,15 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import materials.BasicMaterials;
 import models.blank.BlankRoom;
 
 public class SkyboxRoom extends BlankRoom {
-    private static ColorRGBA skyColor = new ColorRGBA(200f/255f,250f/255f,250f/255f,0);
+    //private static ColorRGBA skyColor = new ColorRGBA(200f/255f,250f/255f,250f/255f,0);
 
-    public SkyboxRoom(AssetManager assetManager, float length, float height, float width) {
-        super(assetManager, length, height, width);
-        Material skyWall = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        skyWall.setColor("Color", skyColor);
+    public SkyboxRoom(float length, float height, float width) {
+        super(length, height, width);
+        Material skyWall = BasicMaterials.skyWall;
 
         for(int i=0; i<this.getNode().getChildren().size(); i++){
             Geometry child = (Geometry)this.getNode().getChild(i);
@@ -33,12 +33,8 @@ public class SkyboxRoom extends BlankRoom {
         node.attachChild(h1Geom);
     }
 
-    public void putSimpleDummyGrass(AssetManager assetManager){
-        Material dummyGrass = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        dummyGrass.setBoolean("UseMaterialColors", true);
-        dummyGrass.setColor("Ambient", new ColorRGBA(50f/255f,150f/255f,50f/255f,0));
-        dummyGrass.setColor("Diffuse", new ColorRGBA(50f/255f,150f/255f,50f/255f,0));
-        this.setFloorMaterial(dummyGrass);
+    public void putSimpleDummyGrass(){
+        this.setFloorMaterial(BasicMaterials.dummyGrass);
         this.getNode().getChild("Floor").setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
     }
 }

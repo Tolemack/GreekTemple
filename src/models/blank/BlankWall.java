@@ -26,16 +26,16 @@ public class BlankWall extends BlankThing{
         }
     };
 
-    public BlankWall(AssetManager assetManager, float width, float height) {
-        super(assetManager);
+    public BlankWall(float width, float height) {
+        super();
 
         this.setHeight(height);
         this.setWidth(width);
         this.setWindows(new ArrayList<BlankWindow>());
     }
 
-    public BlankWall(AssetManager assetManager, float width, float height, ArrayList<BlankWindow> windows){
-        this(assetManager, width, height);
+    public BlankWall(float width, float height, ArrayList<BlankWindow> windows){
+        this(width, height);
         this.setWindows(windows);
         this.draw();
     }

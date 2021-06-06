@@ -6,8 +6,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 
 public class BlankAubinPd extends BlankThing{
-    public BlankAubinPd(AssetManager assetManager){
-        super(assetManager);
+    public BlankAubinPd(){
+        super();
 
         Box BoxA1 = new Box(0.1f/2,0.4f/2,0.1f/2);
         Geometry wallA1 = new Geometry("A1",BoxA1);
@@ -150,7 +150,7 @@ public class BlankAubinPd extends BlankThing{
         this.node.setLocalTranslation(new Vector3f(-10f,5f,-10f));
         this.node.setLocalScale(10);
 
-        this.setMulticolorShaded(assetManager);
+        this.setBlankShaded();
     }
 
 
