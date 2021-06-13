@@ -13,6 +13,7 @@ import com.jme3.shadow.EdgeFilteringMode;
 import materials.BasicMaterials;
 import models.blank.*;
 import models.blank.helpers.BlankWindow;
+import models.templeGrec.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -76,14 +77,34 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.attachChild(room3.getNode());*/
 
         //BlankRoof
-        BlankRoof br = new BlankRoof(5,3,3);
-        rootNode.attachChild(br.getNode());
+        /*BlankRoof br = new BlankRoof(5,3,3);
+        rootNode.attachChild(br.getNode());*/
+
+        //Colonne
+        /*Colonne colonne = new Colonne();
+        rootNode.attachChild(colonne.getNode());*/
+
+        //Soubassement
+        /*Soubassement soubassement = new Soubassement(4,8);
+        rootNode.attachChild(soubassement.getNode());*/
+
+        //Metope
+        Metope metope = new Metope(1,1);
+        rootNode.attachChild(metope.getNode());
+
+        //Architrave
+        /*Architrave architrave = new Architrave(4,8);
+        rootNode.attachChild(architrave.getNode());*/
+
+        //Temple
+        /*TempleGrec templeGrec = new TempleGrec(4,6);
+        rootNode.attachChild(templeGrec.getNode());*/
     }
 
     private void setLighting(){
         DirectionalLight sun = new DirectionalLight();
         sun.setColor(ColorRGBA.White);
-        sun.setDirection(new Vector3f(-.5f,-.5f,-.5f).normalizeLocal());
+        sun.setDirection(new Vector3f(-.3f,-.4f,-.5f).normalizeLocal());
 
         AmbientLight al = new AmbientLight();
         al.setColor(ColorRGBA.White.mult(0.5f));
@@ -91,24 +112,24 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.addLight(sun);
         rootNode.addLight(al);
 
-        dlsr = new DirectionalLightShadowRenderer(assetManager, SHADOWMAP_SIZE, 3);
+        dlsr = new DirectionalLightShadowRenderer(assetManager, 4096, 1);
         dlsr.setLight(sun);
         dlsr.setLambda(0.55f);
-        dlsr.setShadowIntensity(0.8f);
-        dlsr.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
+        dlsr.setShadowIntensity(0.4f);
+        dlsr.setEdgeFilteringMode(EdgeFilteringMode.Bilinear);
         //dlsr.displayDebug();
         viewPort.addProcessor(dlsr);
 
-        dlsf = new DirectionalLightShadowFilter(assetManager, SHADOWMAP_SIZE, 3);
+        /*dlsf = new DirectionalLightShadowFilter(assetManager, SHADOWMAP_SIZE, 1);
         dlsf.setLight(sun);
         dlsf.setLambda(0.55f);
         dlsf.setShadowIntensity(0.8f);
         dlsf.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
-        dlsf.setEnabled(false);
+        dlsf.setEnabled(false);*/
 
-        FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-        fpp.addFilter(dlsf);
+        //FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
+        //fpp.addFilter(dlsf);
 
-        viewPort.addProcessor(fpp);
+        //viewPort.addProcessor(fpp);
     }
 }

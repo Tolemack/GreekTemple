@@ -32,6 +32,7 @@ public class BlankWall extends BlankThing{
         this.setHeight(height);
         this.setWidth(width);
         this.setWindows(new ArrayList<BlankWindow>());
+        this.draw();
     }
 
     public BlankWall(float width, float height, ArrayList<BlankWindow> windows){
