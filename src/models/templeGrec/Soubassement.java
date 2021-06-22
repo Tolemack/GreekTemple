@@ -8,18 +8,47 @@ import materials.BasicMaterials;
 import models.blank.BlankThing;
 
 public class Soubassement extends BlankThing {
-    private static float default_hauteur_marches = 0.5f;
-    private static int default_nombre_marches = 3;
+    private final float default_hauteur_marches = 0.5f;
+    private final int default_nombre_marches = 3;
+
     private float largeur_base;
     private float longueur_base;
     private float hauteur_marches = default_hauteur_marches;
     private int nombre_marches = default_nombre_marches;
 
-    public Soubassement(float width, float length){
+    public Soubassement(int nbColonnesLarge, int nbColonnesLong, float ecartColonnes){
         super();
-        largeur_base = width;
-        longueur_base = length;
+        this.setNbColonnesLarge(nbColonnesLarge, ecartColonnes);
+        this.setNbColonnesLong(nbColonnesLong, ecartColonnes);
+    }
 
+    public void setNbColonnesLarge(int nbColonnesLarge, float ecart_colonnes){
+        this.largeur_base = ecart_colonnes*(nbColonnesLarge-0.5f)
+            +(this.hauteur_marches*this.nombre_marches*2);
+    }
+
+    public void setNbColonnesLong(int nbColonnesLong, float ecart_colonnes){
+        this.longueur_base = ecart_colonnes*(nbColonnesLong-0.5f)
+            +(this.hauteur_marches*this.nombre_marches*2);
+    }
+
+    public void setNombreMarches(int nombreMarches){
+        this.largeur_base -= (this.hauteur_marches*this.nombre_marches*2);
+        this.longueur_base -= (this.hauteur_marches*this.nombre_marches*2);
+        this.nombre_marches = nombreMarches;
+        this.largeur_base += (this.hauteur_marches*this.nombre_marches*2);
+        this.longueur_base += (this.hauteur_marches*this.nombre_marches*2);
+    }
+
+    public void setHauteurMarches(float hauteurMarches){
+        this.largeur_base -= (this.hauteur_marches*this.nombre_marches*2);
+        this.longueur_base -= (this.hauteur_marches*this.nombre_marches*2);
+        this.hauteur_marches = hauteurMarches;
+        this.largeur_base += (this.hauteur_marches*this.nombre_marches*2);
+        this.longueur_base += (this.hauteur_marches*this.nombre_marches*2);
+    }
+
+    public void draw(){
         for(int i=0; i<nombre_marches; i++){
             Box b = new Box(
                     (largeur_base/2)-(i*hauteur_marches),
@@ -36,11 +65,7 @@ public class Soubassement extends BlankThing {
         }
     }
 
-    public static float getDefault_hauteur_marches() {
-        return default_hauteur_marches;
-    }
-
-    public static int getDefault_nombre_marches() {
-        return default_nombre_marches;
+    public float getHauteur(){
+        return hauteur_marches*nombre_marches;
     }
 }

@@ -96,7 +96,6 @@ public class BlankRoof extends BlankThing{
         vertices[8] = new Vector3f(wall_thickness,0,this.width/2);
         vertices[9] = new Vector3f(wall_thickness,0,-this.width/2);
 
-
         vertices[10] = new Vector3f(wall_thickness,this.height,0);
         vertices[11] = new Vector3f(wall_thickness,0,-this.width/2);
         vertices[12] = new Vector3f(0,0,-this.width/2);

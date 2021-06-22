@@ -10,14 +10,29 @@ import materials.BasicMaterials;
 import models.blank.BlankThing;
 
 public class Colonne extends BlankThing {
+    private final float default_largeur_base = 1.5f;
+
     private int axisSamples = 2;
     private int radialSamples = 16;
-    private float hauteur = 6;
-    private float largeur_base = 1.5f;
+    private float hauteur;
+    private float largeur_base = default_largeur_base;
     private float ratio_chapiteau = 0.1f;
 
-    public Colonne(){
+    public Colonne(float hauteur){
         super();
+        this.hauteur = hauteur;
+    }
+
+    public Colonne(Colonne colonne){
+        super();
+        this.axisSamples = colonne.axisSamples;
+        this.radialSamples = colonne.radialSamples;
+        this.hauteur = colonne.hauteur;
+        this.largeur_base = colonne.largeur_base;
+        this.ratio_chapiteau = colonne.ratio_chapiteau;
+    }
+
+    public void draw(){
         Cylinder c1 = new Cylinder(
                 axisSamples,
                 radialSamples,
@@ -66,13 +81,37 @@ public class Colonne extends BlankThing {
         this.node.getChild("C3").setLocalTranslation(new Vector3f(0,-(h*r)/4+h,0));
         this.node.getChild("C3").setLocalRotation(new Quaternion().fromAngles((float)Math.PI/2,0,0));
         this.node.getChild("C3").setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+    }
 
-        //Boite pour vérifier les dimensions
-        /*Box b1 = new Box(largeur_base/2,hauteur/2,largeur_base/2);
+    private void boxCheck(){
+        Box b1 = new Box(largeur_base/2,hauteur/2,largeur_base/2);
         Geometry b1Geom = new Geometry("B1",b1);
         b1Geom.setMaterial(BasicMaterials.blankShaded);
         this.node.attachChild(b1Geom);
-        this.node.getChild("B1").setLocalTranslation(new Vector3f(largeur_base/2,hauteur/2,0));*/
+        this.node.getChild("B1").setLocalTranslation(new Vector3f(largeur_base/2,hauteur/2,0));
+    }
 
+    public float getHauteur() {
+        return hauteur;
+    }
+
+    public void setHauteur(float hauteur) {
+        this.hauteur = hauteur;
+    }
+
+    public float getLargeurBase() {
+        return largeur_base;
+    }
+
+    public void setLargeurBase(float largeurBase) {
+        this.largeur_base = largeurBase;
+    }
+
+    public float getRatioChapiteau() {
+        return ratio_chapiteau;
+    }
+
+    public void setRatioChapiteau(float ratioChapiteau) {
+        this.ratio_chapiteau = ratioChapiteau;
     }
 }

@@ -89,16 +89,16 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.attachChild(soubassement.getNode());*/
 
         //Metope
-        Metope metope = new Metope(1,1);
-        rootNode.attachChild(metope.getNode());
+        /*Metope metope = new Metope(4,2);
+        rootNode.attachChild(metope.getNode());*/
 
         //Architrave
         /*Architrave architrave = new Architrave(4,8);
         rootNode.attachChild(architrave.getNode());*/
 
         //Temple
-        /*TempleGrec templeGrec = new TempleGrec(4,6);
-        rootNode.attachChild(templeGrec.getNode());*/
+        TempleGrec templeGrec = new TempleGrec(4,6);
+        rootNode.attachChild(templeGrec.getNode());
     }
 
     private void setLighting(){

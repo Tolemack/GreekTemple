@@ -16,10 +16,13 @@ public class Architrave extends BlankThing {
     private float ratio = 0.75f;
     private float marge = hauteur*(1-ratio);
 
-    public Architrave(float width, float length){
+    public Architrave(int nbColonnesLarge, int nbColonnesLong, float ecartColonnes){
         super();
-        largeur = width;
-        longueur = length;
+        largeur = ecartColonnes*(nbColonnesLarge-0.5f);
+        longueur = ecartColonnes*(nbColonnesLong-0.5f);
+    }
+
+    public void draw(){
 
         Box b1 = new Box(
                 largeur/2,
@@ -50,5 +53,29 @@ public class Architrave extends BlankThing {
         );
         this.node.getChild("B2").setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
+    }
+
+    public float getLargeur() {
+        return largeur;
+    }
+
+    public void setLargeur(float largeur) {
+        this.largeur = largeur;
+    }
+
+    public float getLongueur() {
+        return longueur;
+    }
+
+    public void setLongueur(float longueur) {
+        this.longueur = longueur;
+    }
+
+    public float getHauteur() {
+        return hauteur;
+    }
+
+    public void setHauteur(float hauteur) {
+        this.hauteur = hauteur;
     }
 }
