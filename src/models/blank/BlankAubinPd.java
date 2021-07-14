@@ -1,6 +1,7 @@
 package models.blank;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
@@ -147,8 +148,9 @@ public class BlankAubinPd extends BlankThing{
         wallD4.setLocalTranslation(new Vector3f(2.5f,0,0));
         this.node.attachChild(wallD4);
 
-        this.node.setLocalTranslation(new Vector3f(-10f,5f,-10f));
-        this.node.setLocalScale(10);
+        this.node.setLocalTranslation(new Vector3f(5f,5f,3f));
+        this.node.setLocalRotation(new Quaternion().fromAngles(0,(float)Math.PI,0));
+        this.node.setLocalScale(4);
 
         this.setBlankShaded();
     }

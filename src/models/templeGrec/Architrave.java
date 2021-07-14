@@ -78,4 +78,11 @@ public class Architrave extends BlankThing {
     public void setHauteur(float hauteur) {
         this.hauteur = hauteur;
     }
+
+    public float getFullLongueur() {
+        return longueur+2*marge;
+    }
+    public float getFullLargeur() {
+        return largeur+2*marge;
+    }
 }

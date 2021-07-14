@@ -5,6 +5,8 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
 
+import java.util.Random;
+
 public class BasicMaterials {
     //VARIABLES UTILISEES
     //Base
@@ -71,5 +73,50 @@ public class BasicMaterials {
         templeGrecGold.setColor("Ambient", color_templeGrecGold.mult(0.75f));
         templeGrecGold.setColor("Diffuse", color_templeGrecGold);
         templeGrecGold.setFloat( "Shininess", 64f);
+
+        //setTempleBlue();
+        //setTempleRandom();
+    }
+
+    public void setTempleRandom(){
+
+        Random rand = new Random();
+
+        ColorRGBA colorRand = new ColorRGBA(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(),0);
+        templeGrecPaleYellow.setColor("Ambient", colorRand.mult(0.75f));
+        templeGrecPaleYellow.setColor("Diffuse", colorRand);
+
+        colorRand = new ColorRGBA(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(),0);
+        templeGrecBleu.setColor("Ambient", colorRand.mult(0.75f));
+        templeGrecBleu.setColor("Diffuse", colorRand);
+
+        colorRand = new ColorRGBA(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(),0);
+        templeGrecRouge.setColor("Ambient", colorRand.mult(0.75f));
+        templeGrecRouge.setColor("Diffuse", colorRand);
+
+        colorRand = new ColorRGBA(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(),0);
+        dummyGrass.setColor("Ambient", colorRand.mult(0.75f));
+        dummyGrass.setColor("Diffuse", colorRand);
+    }
+
+    public void setTempleBlue(){
+
+        ColorRGBA color3 = color_templeGrecBleu;
+        ColorRGBA color2 = new ColorRGBA(255f/255f,255f/255f,255f/255f,0);
+        ColorRGBA color1 = new ColorRGBA(50f/255f,50f/255f,50f/255f,0);
+
+        ColorRGBA colorGrass = new ColorRGBA(67f/255f,165f/255f,153f/255f,0);
+
+        templeGrecPaleYellow.setColor("Ambient", color1.mult(0.75f));
+        templeGrecPaleYellow.setColor("Diffuse", color1);
+
+        templeGrecBleu.setColor("Ambient", color2.mult(0.75f));
+        templeGrecBleu.setColor("Diffuse", color2);
+
+        templeGrecRouge.setColor("Ambient", color3.mult(0.75f));
+        templeGrecRouge.setColor("Diffuse", color3);
+
+        dummyGrass.setColor("Ambient", colorGrass.mult(0.75f));
+        dummyGrass.setColor("Diffuse", colorGrass);
     }
 }

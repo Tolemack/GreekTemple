@@ -16,7 +16,7 @@ public class Metope extends BlankThing {
     private static float default_depth = (float)1/3;
     private float largeur;
     private float hauteur;
-    private float profondeur = (float)0.5f;
+    private float profondeur = (float)0.125f;
 
     private Node baseNodeMesh;
 

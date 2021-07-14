@@ -2,6 +2,7 @@ import com.jme3.app.SimpleApplication;
 
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
@@ -38,6 +39,20 @@ public class HelloJME3 extends SimpleApplication {
         //Other Params
         this.setScene();
         this.flyCam.setMoveSpeed(10);
+        this.cam.setLocation(new Vector3f(0,10,-40));
+        this.cam.setRotation(new Quaternion().fromAngles(
+                (float)(10*Math.PI/180),
+                0,
+                0)
+        );
+
+        /*System.out.println("Frustrum Near "+this.cam.getFrustumNear());
+        System.out.println("Frustrum Far "+this.cam.getFrustumFar());
+        System.out.println("Frustrum Left "+this.cam.getFrustumLeft());
+        System.out.println("Frustrum Right "+this.cam.getFrustumRight());
+        System.out.println("Frustrum Top "+this.cam.getFrustumTop());
+        System.out.println("Frustrum Bottom "+this.cam.getFrustumBottom());*/
+
         this.setLighting();
     }
 
@@ -46,7 +61,7 @@ public class HelloJME3 extends SimpleApplication {
         BasicMaterials basicMaterials = new BasicMaterials(this.getAssetManager());
 
         //Skybox
-        SkyboxRoom roomSky = new SkyboxRoom(50,50,50);
+        SkyboxRoom roomSky = new SkyboxRoom(100,100,100);
         roomSky.putSimpleDummyGrass();
         rootNode.attachChild(roomSky.getNode());
 
@@ -97,14 +112,19 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.attachChild(architrave.getNode());*/
 
         //Temple
-        TempleGrec templeGrec = new TempleGrec(4,6);
+        TempleGrec templeGrec = new TempleGrec(6,10);
+        templeGrec.draw();
         rootNode.attachChild(templeGrec.getNode());
+
+        /*Roof roof = new Roof();
+        roof.draw();
+        rootNode.attachChild(roof.getNode());*/
     }
 
     private void setLighting(){
         DirectionalLight sun = new DirectionalLight();
         sun.setColor(ColorRGBA.White);
-        sun.setDirection(new Vector3f(-.3f,-.4f,-.5f).normalizeLocal());
+        sun.setDirection(new Vector3f(.3f,-.4f,.5f).normalizeLocal());
 
         AmbientLight al = new AmbientLight();
         al.setColor(ColorRGBA.White.mult(0.5f));

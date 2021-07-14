@@ -2,6 +2,7 @@ package models.templeGrec;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
@@ -23,7 +24,7 @@ public class GtMetopeManager extends BlankThing {
 
     public GtMetopeManager(
 
-        int nbMetopeLong, int nbMetopeLarge, float hauteur, Architrave architrave){
+        int nbMetopeLarge, int nbMetopeLong, float hauteur, Architrave architrave){
 
         this.nbMetopeLong = nbMetopeLong;
         this.nbMetopeLarge = nbMetopeLarge;
@@ -111,6 +112,8 @@ public class GtMetopeManager extends BlankThing {
                         hauteur_metope/2,
                         0)
         );
+        this.metopeBox.getChild("metopeBox")
+                .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         this.node.attachChild(this.metopeBox);
     }
 
