@@ -12,6 +12,8 @@ import models.blank.BlankThing;
 public class Colonne extends BlankThing {
     private final float default_largeur_base = 1.5f;
 
+    private boolean hauteurChapFixe = true;
+
     private int axisSamples = 2;
     private int radialSamples = 16;
     private float hauteur;
@@ -30,6 +32,7 @@ public class Colonne extends BlankThing {
         this.hauteur = colonne.hauteur;
         this.largeur_base = colonne.largeur_base;
         this.ratio_chapiteau = colonne.ratio_chapiteau;
+        this.hauteurChapFixe = colonne.hauteurChapFixe;
     }
 
     public void draw(){
@@ -96,6 +99,9 @@ public class Colonne extends BlankThing {
     }
 
     public void setHauteur(float hauteur) {
+        if(hauteurChapFixe){
+            this.ratio_chapiteau = this.getHauteurChapiteau()/hauteur;
+        }
         this.hauteur = hauteur;
     }
 
@@ -113,5 +119,15 @@ public class Colonne extends BlankThing {
 
     public void setRatioChapiteau(float ratioChapiteau) {
         this.ratio_chapiteau = ratioChapiteau;
+        this.hauteurChapFixe = false;
+    }
+
+    public void setHauteurChapiteau(float hauteurChapiteau){
+        this.ratio_chapiteau = hauteurChapiteau/this.hauteur;
+        this.hauteurChapFixe = true;
+    }
+
+    public float getHauteurChapiteau(){
+        return this.hauteur*this.ratio_chapiteau;
     }
 }

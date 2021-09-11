@@ -113,6 +113,7 @@ public class HelloJME3 extends SimpleApplication {
 
         //Temple
         TempleGrec templeGrec = new TempleGrec(6,10);
+        templeGrec.setHauteurColonnes(5);
         templeGrec.draw();
         rootNode.attachChild(templeGrec.getNode());
 

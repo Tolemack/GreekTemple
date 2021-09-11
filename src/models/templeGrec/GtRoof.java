@@ -17,7 +17,7 @@ public class GtRoof extends BlankThing {
     private float largeur;
     private float hauteur;
 
-    private float ratio_base = 0.10f;
+    private float epaisseur = 0.5f;
     private float profondeurTympan = 0;
 
     private float marge;
@@ -32,7 +32,7 @@ public class GtRoof extends BlankThing {
         this.largeur = width;
         this.hauteur = height;
 
-        marge = hauteur*(ratio_base);
+        marge = epaisseur;
     }
 
     public void draw(){
@@ -57,7 +57,7 @@ public class GtRoof extends BlankThing {
     public void drawTympan(){
         Mesh mesh1 = new Mesh();
 
-        Vector3f[] vertices1 = new Vector3f[6];
+        Vector3f[] vertices1 = new Vector3f[3];
         vertices1[0] = new Vector3f(0,0,0);
         vertices1[1] = new Vector3f(1,0,0);
         vertices1[2] = new Vector3f(0.5f,1,0);
@@ -91,7 +91,7 @@ public class GtRoof extends BlankThing {
 
         this.tympanNode.move(new Vector3f(
                 -largeur/2-marge,
-                hauteur*ratio_base,
+                epaisseur,
                 -longueur/2+profondeurTympan
         ));
 
@@ -106,13 +106,13 @@ public class GtRoof extends BlankThing {
         roofNode.attachChild(roof.getNode());
         roof.getNode().setMaterial(BasicMaterials.templeGrecPaleYellow);
         roof.getNode().setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-        this.roofNode.move(new Vector3f(0,hauteur*ratio_base,0));
+        this.roofNode.move(new Vector3f(0,epaisseur,0));
     }
 
     public void drawBaseBox(){
         Box baseBox = new Box(
                 largeur/2+marge,
-                ratio_base*hauteur/2,
+                epaisseur/2,
                 longueur/2+marge
         );
         Geometry baseBoxGeom = new Geometry("baseBox",baseBox);
@@ -121,7 +121,7 @@ public class GtRoof extends BlankThing {
         this.baseNode.getChild("baseBox").setLocalTranslation(
                 new Vector3f(
                         0,
-                        ratio_base*hauteur/2,
+                        epaisseur/2,
                         0)
         );
         this.baseNode.getChild("baseBox")
@@ -132,7 +132,7 @@ public class GtRoof extends BlankThing {
         return hauteur;
     }
 
-    public void drawTympan2(){
+    public void drawTympan2Old(){
         Mesh mesh1 = new Mesh();
 
         Vector3f[] vectors = new Vector3f[6];
@@ -192,6 +192,58 @@ public class GtRoof extends BlankThing {
         this.tympanNode2.getChild("tympanFront")
                 .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
-        this.tympanNode2.move(0,hauteur*ratio_base, -longueur/2);
+        this.tympanNode2.move(0,epaisseur, -longueur/2);
+    }
+
+    public void drawTympan2(){
+        //Points Necessaires
+        Vector3f[] vectors = new Vector3f[3];
+        vectors[0] = new Vector3f(0,0,0);
+        vectors[1] = new Vector3f(largeur+2*marge,0,0);
+        vectors[2] = new Vector3f((largeur+2*marge)/2,hauteur,0);
+
+        //Points à relier dans le sens antihoraire
+        Vector3f[] vertices1 = new Vector3f[3];
+        vertices1[0] = vectors[0];
+        vertices1[1] = vectors[1];
+        vertices1[2] = vectors[2];
+
+        //Je ne sais plus à quoi ça sert mais ok
+        int[] indexes1 = new int[vertices1.length];
+        for(int i=0;i<indexes1.length;i++){
+            indexes1[i] = indexes1.length-i-1;
+        }
+
+        //1 normale par vertices1
+        float[] normals1 = new float[]{
+                0,0,-1, 0,0,-1, 0,0,-1
+        };
+
+        //Pour la gestion des textures
+        Vector2f[] texCoord = new Vector2f[4];
+        texCoord[0] = new Vector2f(0,0);
+        texCoord[1] = new Vector2f(1,0);
+        texCoord[2] = new Vector2f(0,1);
+        texCoord[3] = new Vector2f(1,1);
+
+        //Création du mesh
+        Mesh mesh1 = new Mesh();
+        mesh1.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(vertices1));
+        mesh1.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoord));
+        mesh1.setBuffer(VertexBuffer.Type.Index,    3, BufferUtils.createIntBuffer(indexes1));
+        mesh1.setBuffer(VertexBuffer.Type.Normal,   3, BufferUtils.createFloatBuffer(normals1));
+        mesh1.updateBound();
+
+        //Geometry + Rattachement Node
+        Geometry geo1 = new Geometry("NAME", mesh1);
+        geo1.setMaterial(BasicMaterials.templeGrecBleu);
+        this.node.attachChild(geo1);
+
+        //Recentrer si necessaire
+        this.node.getChild("NAME").move(new Vector3f(
+                0,
+                0,
+                0
+        ));
     }
 }

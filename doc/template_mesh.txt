@@ -1,0 +1,49 @@
+//Points Necessaires
+Vector3f[] vectors = new Vector3f[3];
+vectors[0] = new Vector3f(0,0,0);
+vectors[1] = new Vector3f(1,0,0);
+vectors[2] = new Vector3f(0.5f,1,0);
+
+//Points à relier dans le sens antihoraire
+Vector3f[] vertices1 = new Vector3f[3];
+vertices1[0] = vectors[0];
+vertices1[1] = vectors[1];
+vertices1[2] = vectors[2];
+
+//Je ne sais plus à quoi ça sert mais ok
+int[] indexes1 = new int[vertices1.length];
+for(int i=0;i<indexes1.length;i++){
+    indexes1[i] = indexes1.length-i-1;
+}
+
+//1 normale par vertices1
+float[] normals1 = new float[]{
+    0,0,-1, 0,0,-1, 0,0,-1
+};
+
+//Pour la gestion des textures
+Vector2f[] texCoord = new Vector2f[4];
+texCoord[0] = new Vector2f(0,0);
+texCoord[1] = new Vector2f(1,0);
+texCoord[2] = new Vector2f(0,1);
+texCoord[3] = new Vector2f(1,1);
+
+//Création du mesh
+Mesh mesh1 = new Mesh();
+mesh1.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(vertices1));
+mesh1.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoord));
+mesh1.setBuffer(VertexBuffer.Type.Index,    3, BufferUtils.createIntBuffer(indexes1));
+mesh1.setBuffer(VertexBuffer.Type.Normal,   3, BufferUtils.createFloatBuffer(normals1));
+mesh1.updateBound();
+
+//Geometry + Rattachement Node
+Geometry geo1 = new Geometry("NAME", mesh1);
+geo1.setMaterial(BasicMaterials.templeGrecBleu);
+this.node.attachChild(geo1);
+
+//Recentrer si necessaire
+this.node.getChild("NAME").move(new Vector3f(
+        0,
+        0,
+        0
+));

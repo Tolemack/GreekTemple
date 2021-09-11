@@ -28,11 +28,14 @@ public class TempleGrec extends BlankThing {
     private float current_hauteur_max = 0;
 
     public TempleGrec(int nbColonnesLarge, int nbColonnesLong){
+        //Initialisation et calcul des variables
         this.nbColonnesLarge = nbColonnesLarge;
         this.nbColonnesLong = nbColonnesLong;
-
         this.largeur = ecart_colonnes*(nbColonnesLarge-0.5f);
         this.longueur = ecart_colonnes*(nbColonnesLong-0.5f);
+
+        //Initialisation des managers
+        this.colonneManager = new GtColonneManager(nbColonnesLarge, nbColonnesLong);
     }
 
     public void draw(){
@@ -55,8 +58,6 @@ public class TempleGrec extends BlankThing {
     }
 
     private void drawColonnes(){
-        this.colonneManager = new GtColonneManager(nbColonnesLarge, nbColonnesLong);
-        //this.colonneManager.setHauteur(6);
         this.colonneManager.draw();
         this.node.attachChild(colonneManager.getNode());
         this.colonneManager.getNode().move(0,this.current_hauteur_max,0);
@@ -90,5 +91,9 @@ public class TempleGrec extends BlankThing {
         this.node.attachChild(roof.getNode());
         this.roof.getNode().move(0,this.current_hauteur_max,0);
         this.current_hauteur_max += roof.getHauteur();
+    }
+
+    public void setHauteurColonnes(float hauteur){
+        this.colonneManager.setHauteur(hauteur);
     }
 }
