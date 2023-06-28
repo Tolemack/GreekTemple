@@ -66,6 +66,7 @@ public class TempleGrec extends BlankThing {
 
     private void drawArchitrave(){
         this.architrave = new Architrave(nbColonnesLarge, nbColonnesLong, ecart_colonnes);
+        this.architrave.setEpaisseur(this.colonneManager.getBaseColonne().getLargeurBase());
         this.architrave.draw();
         this.node.attachChild(architrave.getNode());
         this.architrave.getNode().move(0,this.current_hauteur_max,0);
@@ -76,6 +77,7 @@ public class TempleGrec extends BlankThing {
             int nbMetopeLong, int nbMetopeLarge, float hauteur){
         this.metopeManager = new GtMetopeManager(
             nbMetopeLong, nbMetopeLarge, hauteur, architrave);
+        this.metopeManager.setEpaisseur(this.colonneManager.getBaseColonne().getLargeurBase());
         this.metopeManager.draw();
         this.node.attachChild(metopeManager.getNode());
         this.metopeManager.getNode().move(0,this.current_hauteur_max,0);

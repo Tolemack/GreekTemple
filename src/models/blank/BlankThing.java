@@ -57,4 +57,8 @@ public class BlankThing {
         }
     }
 
+    public void clear(){
+        this.node.detachAllChildren();
+    }
+
 }

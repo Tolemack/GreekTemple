@@ -82,4 +82,8 @@ public class GtColonneManager extends BlankThing {
     public void setHauteur(float hauteur){
         this.baseColonne.setHauteur(hauteur);
     }
+
+    public Colonne getBaseColonne() {
+        return this.baseColonne;
+    }
 }

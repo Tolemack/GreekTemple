@@ -19,6 +19,7 @@ public class GtMetopeManager extends BlankThing {
     private int nbMetopeLong;
     private int nbMetopeLarge;
     private float hauteur;
+    private float epaisseur = 0;
     private float longueurArchitrave;
     private float largeurArchitrave;
 
@@ -95,6 +96,14 @@ public class GtMetopeManager extends BlankThing {
     }
 
     private void drawMetopeBox(){
+        if(this.epaisseur == 0){
+            this.drawMetopeBoxEpaisseur0();
+        } else {
+            this.drawMetopeBoxEpaisseur1();
+        }
+    }
+
+    private void drawMetopeBoxEpaisseur0(){
         this.metopeBox = new Node();
         float profondeurMetope = this.metopes.get(0).getProfondeur();
         float hauteur_metope = this.metopes.get(0).getHauteur();
@@ -117,11 +126,100 @@ public class GtMetopeManager extends BlankThing {
         this.node.attachChild(this.metopeBox);
     }
 
+    private void drawMetopeBoxEpaisseur1(){
+        this.metopeBox = new Node();
+        float profondeurMetope = this.metopes.get(0).getProfondeur();
+        float hauteur_metope = this.metopes.get(0).getHauteur();
+
+        Box metopeBoxFront = new Box(
+                largeurArchitrave/2-epaisseur,
+                hauteur_metope/2,
+                epaisseur/2-profondeurMetope/2
+        );
+        Geometry metopeBoxFrontGeom = new Geometry("metopeBoxFront",metopeBoxFront);
+        metopeBoxFrontGeom.setMaterial(BasicMaterials.templeGrecPaleYellow);
+
+        Box metopeBoxBack = new Box(
+                largeurArchitrave/2-epaisseur,
+                hauteur_metope/2,
+                epaisseur/2-profondeurMetope/2
+        );
+        Geometry metopeBoxBackGeom = new Geometry("metopeBoxBack",metopeBoxBack);
+        metopeBoxBackGeom.setMaterial(BasicMaterials.templeGrecPaleYellow);
+
+        Box metopeBoxLeft = new Box(
+                epaisseur/2-profondeurMetope/2,
+                hauteur_metope/2,
+                longueurArchitrave/2-profondeurMetope
+        );
+        Geometry metopeBoxLeftGeom = new Geometry("metopeBoxLeft",metopeBoxLeft);
+        metopeBoxLeftGeom.setMaterial(BasicMaterials.templeGrecPaleYellow);
+
+        Box metopeBoxRight = new Box(
+                epaisseur/2-profondeurMetope/2,
+                hauteur_metope/2,
+                longueurArchitrave/2-profondeurMetope
+        );
+        Geometry metopeBoxRightGeom = new Geometry("metopeBoxRight",metopeBoxRight);
+        metopeBoxRightGeom.setMaterial(BasicMaterials.templeGrecPaleYellow);
+
+        this.metopeBox.attachChild(metopeBoxFrontGeom);
+        this.metopeBox.getChild("metopeBoxFront").setLocalTranslation(
+                new Vector3f(
+                        0,
+                        hauteur_metope/2,
+                        -longueurArchitrave/2+epaisseur/2+profondeurMetope/2)
+        );
+
+        this.metopeBox.attachChild(metopeBoxBackGeom);
+        this.metopeBox.getChild("metopeBoxBack").setLocalTranslation(
+                new Vector3f(
+                        0,
+                        hauteur_metope/2,
+                        longueurArchitrave/2-epaisseur/2-profondeurMetope/2)
+        );
+
+        this.metopeBox.attachChild(metopeBoxLeftGeom);
+        this.metopeBox.getChild("metopeBoxLeft").setLocalTranslation(
+                new Vector3f(
+                        -largeurArchitrave/2+epaisseur/2+profondeurMetope/2,
+                        hauteur_metope/2,
+                        0)
+        );
+
+        this.metopeBox.attachChild(metopeBoxRightGeom);
+        this.metopeBox.getChild("metopeBoxRight").setLocalTranslation(
+                new Vector3f(
+                        largeurArchitrave/2-epaisseur/2-profondeurMetope/2,
+                        hauteur_metope/2,
+                        0)
+        );
+
+        this.metopeBox.getChild("metopeBoxFront")
+                .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        this.metopeBox.getChild("metopeBoxBack")
+                .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        this.metopeBox.getChild("metopeBoxLeft")
+                .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        this.metopeBox.getChild("metopeBoxRight")
+                .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+
+        this.node.attachChild(this.metopeBox);
+    }
+
     public float getHauteur() {
         return hauteur;
     }
 
     public void setHauteur(float hauteur) {
         this.hauteur = hauteur;
+    }
+
+    public float getEpaisseur() {
+        return epaisseur;
+    }
+
+    public void setEpaisseur(float epaisseur) {
+        this.epaisseur = epaisseur;
     }
 }

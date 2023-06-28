@@ -18,6 +18,7 @@ import models.templeGrec.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Sample 5 - how to map keys and mousebuttons to actions
@@ -59,11 +60,15 @@ public class HelloJME3 extends SimpleApplication {
     private void setScene(){
         //Load Materials
         BasicMaterials basicMaterials = new BasicMaterials(this.getAssetManager());
+        basicMaterials.setTempleRandom();
 
         //Skybox
         SkyboxRoom roomSky = new SkyboxRoom(100,100,100);
         roomSky.putSimpleDummyGrass();
         rootNode.attachChild(roomSky.getNode());
+
+        //random
+        Random random = new Random();
 
         //Scene
 
@@ -112,8 +117,10 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.attachChild(architrave.getNode());*/
 
         //Temple
-        TempleGrec templeGrec = new TempleGrec(6,10);
-        templeGrec.setHauteurColonnes(5);
+        TempleGrec templeGrec = new TempleGrec(
+                random.nextInt(13)+3,
+                random.nextInt(13)+3);
+        templeGrec.setHauteurColonnes(random.nextInt(13)+3);
         templeGrec.draw();
         rootNode.attachChild(templeGrec.getNode());
 
