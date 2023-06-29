@@ -7,24 +7,22 @@ import models.blank.BlankThing;
 import java.util.ArrayList;
 
 public class GtColonneManager extends BlankThing {
-    private final Colonne default_colonne = new Colonne(6);
-    private final float default_ecart_colonnes = 3.0f;
-
-    private Colonne baseColonne = default_colonne;
-
+    TempleGrecProperties.Colonnes prop;
+    private Colonne baseColonne;
     private ArrayList<Colonne> colonnes;
-    private float ecart_colonnes = default_ecart_colonnes;
-    private int nbColonnesLarge;
-    private int nbColonnesLong;
 
-    public GtColonneManager(int nbColonnesLarge, int nbColonnesLong){
+    public GtColonneManager(TempleGrecProperties.Colonnes prop){
         super();
-        this.nbColonnesLarge = nbColonnesLarge;
-        this.nbColonnesLong = nbColonnesLong;
+        this.prop = prop;
         colonnes = new ArrayList<>();
     }
 
     public void draw(){
+        this.baseColonne = prop.colonne;
+        int nbColonnesLarge = prop.nbColonnesLarge;
+        int nbColonnesLong = prop.nbColonnesLong;
+        float ecart_colonnes = prop.ecart_colonnes;
+
         for(int iColLarge=0; iColLarge<nbColonnesLarge; iColLarge++){
             colonnes.add(new Colonne(this.baseColonne));
             colonnes.get(colonnes.size()-1).draw();

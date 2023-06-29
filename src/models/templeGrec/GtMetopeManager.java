@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class GtMetopeManager extends BlankThing {
 
+    TempleGrecProperties.Metope prop;
+
     private ArrayList<Metope> metopes;
     private Node metopeBox;
 
@@ -23,20 +25,21 @@ public class GtMetopeManager extends BlankThing {
     private float longueurArchitrave;
     private float largeurArchitrave;
 
-    public GtMetopeManager(
-
-        int nbMetopeLarge, int nbMetopeLong, float hauteur, Architrave architrave){
-
-        this.nbMetopeLong = nbMetopeLong;
-        this.nbMetopeLarge = nbMetopeLarge;
-        this.hauteur = hauteur;
-        this.longueurArchitrave = architrave.getLongueur();
-        this.largeurArchitrave = architrave.getLargeur();
-        this.metopes = new ArrayList<>();
-
+    public GtMetopeManager(TempleGrecProperties.Metope prop){
+        this.prop = prop;
     }
 
     public void draw(){
+
+        this.metopes = new ArrayList<>();
+
+        this.nbMetopeLong = prop.nbMetopeLong;
+        this.nbMetopeLarge = prop.nbMetopeLarge;
+        this.hauteur = prop.hauteur;
+        this.epaisseur = prop.epaisseur;
+        this.longueurArchitrave = prop.longueurArchitrave;
+        this.largeurArchitrave = prop.largeurArchitrave;
+
         float largeurMetopeLong = longueurArchitrave/nbMetopeLong;
         float largeurMetopeLarg = largeurArchitrave/nbMetopeLarge;
 

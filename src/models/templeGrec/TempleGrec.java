@@ -12,52 +12,53 @@ import java.util.ArrayList;
 
 public class TempleGrec extends BlankThing {
 
-    private int nbColonnesLarge;
-    private int nbColonnesLong;
-    private float ecart_colonnes = 3.0f;
+    TempleGrecProperties prop;
+
+    public int nbMarches;
+    public int nbColonnesLarge;
+    public int nbColonnesLong;
+    public float ecart_colonnes = 3.0f;
+    /*public int nbMetopeLarge;
+    public int nbMetopeLong;*/
 
     private float largeur;
     private float longueur;
 
     private Soubassement soubassement;
     private GtColonneManager colonneManager;
-    private GtMetopeManager metopeManager;
     private Architrave architrave;
+    private GtMetopeManager metopeManager;
     private GtRoof roof;
 
     private float current_hauteur_max = 0;
 
-    public TempleGrec(int nbColonnesLarge, int nbColonnesLong){
-        //Initialisation et calcul des variables
-        this.nbColonnesLarge = nbColonnesLarge;
-        this.nbColonnesLong = nbColonnesLong;
-        this.largeur = ecart_colonnes*(nbColonnesLarge-0.5f);
-        this.longueur = ecart_colonnes*(nbColonnesLong-0.5f);
-
-        //Initialisation des managers
-        this.colonneManager = new GtColonneManager(nbColonnesLarge, nbColonnesLong);
+    public TempleGrec(TempleGrecProperties prop){
+        this.prop = prop;
     }
 
     public void draw(){
+
+        this.nbColonnesLarge = prop.parameters.nbColonnesLarge;
+        this.nbColonnesLong = prop.parameters.nbColonnesLong;
+        this.largeur = prop.parameters.ecart_colonnes*(prop.parameters.nbColonnesLarge-0.5f);
+        this.longueur = prop.parameters.ecart_colonnes*(prop.parameters.nbColonnesLong-0.5f);
+
         this.drawSoubassement();
         this.drawColonnes();
         this.drawArchitrave();
-        this.drawMetope(
-                (nbColonnesLarge-1)*2,
-                (nbColonnesLong-1)*2,
-                1
-        );
+        this.drawMetope();
         this.drawRoof();
     }
 
     private void drawSoubassement(){
-        this.soubassement = new Soubassement(nbColonnesLarge, nbColonnesLong, ecart_colonnes);
+        this.soubassement = new Soubassement(prop.soubassement);
         this.soubassement.draw();
         this.node.attachChild(soubassement.getNode());
         this.current_hauteur_max += soubassement.getHauteur();
     }
 
     private void drawColonnes(){
+        this.colonneManager = new GtColonneManager(prop.colonnes);
         this.colonneManager.draw();
         this.node.attachChild(colonneManager.getNode());
         this.colonneManager.getNode().move(0,this.current_hauteur_max,0);
@@ -65,7 +66,7 @@ public class TempleGrec extends BlankThing {
     }
 
     private void drawArchitrave(){
-        this.architrave = new Architrave(nbColonnesLarge, nbColonnesLong, ecart_colonnes);
+        this.architrave = new Architrave(prop.architrave);
         this.architrave.setEpaisseur(this.colonneManager.getBaseColonne().getLargeurBase());
         this.architrave.draw();
         this.node.attachChild(architrave.getNode());
@@ -73,10 +74,8 @@ public class TempleGrec extends BlankThing {
         this.current_hauteur_max += architrave.getHauteur();
     }
 
-    private void drawMetope(
-            int nbMetopeLong, int nbMetopeLarge, float hauteur){
-        this.metopeManager = new GtMetopeManager(
-            nbMetopeLong, nbMetopeLarge, hauteur, architrave);
+    private void drawMetope(){
+        this.metopeManager = new GtMetopeManager(prop.metope);
         this.metopeManager.setEpaisseur(this.colonneManager.getBaseColonne().getLargeurBase());
         this.metopeManager.draw();
         this.node.attachChild(metopeManager.getNode());
@@ -85,10 +84,7 @@ public class TempleGrec extends BlankThing {
     }
 
     private void drawRoof(){
-        this.roof = new GtRoof(
-                longueur,
-                largeur,
-                (this.current_hauteur_max*3/10));
+        this.roof = new GtRoof(prop.roof);
         this.roof.draw();
         this.node.attachChild(roof.getNode());
         this.roof.getNode().move(0,this.current_hauteur_max,0);

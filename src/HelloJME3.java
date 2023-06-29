@@ -63,7 +63,7 @@ public class HelloJME3 extends SimpleApplication {
         basicMaterials.setTempleRandom();
 
         //Skybox
-        SkyboxRoom roomSky = new SkyboxRoom(100,100,100);
+        SkyboxRoom roomSky = new SkyboxRoom(400,400,400);
         roomSky.putSimpleDummyGrass();
         rootNode.attachChild(roomSky.getNode());
 
@@ -118,9 +118,8 @@ public class HelloJME3 extends SimpleApplication {
 
         //Temple
         TempleGrec templeGrec = new TempleGrec(
-                random.nextInt(13)+3,
-                random.nextInt(13)+3);
-        templeGrec.setHauteurColonnes(random.nextInt(13)+3);
+                new TempleGrecProperties()
+        );
         templeGrec.draw();
         rootNode.attachChild(templeGrec.getNode());
 
@@ -143,8 +142,8 @@ public class HelloJME3 extends SimpleApplication {
         dlsr = new DirectionalLightShadowRenderer(assetManager, 4096, 1);
         dlsr.setLight(sun);
         dlsr.setLambda(0.55f);
-        dlsr.setShadowIntensity(0.4f);
-        dlsr.setEdgeFilteringMode(EdgeFilteringMode.Bilinear);
+        dlsr.setShadowIntensity(0.3f);
+        dlsr.setEdgeFilteringMode(EdgeFilteringMode.Dither);
         //dlsr.displayDebug();
         viewPort.addProcessor(dlsr);
 

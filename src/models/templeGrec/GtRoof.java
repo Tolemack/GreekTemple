@@ -13,13 +13,14 @@ import materials.BasicMaterials;
 import models.blank.BlankThing;
 
 public class GtRoof extends BlankThing {
+
+    TempleGrecProperties.Roof prop;
+
     private float longueur;
     private float largeur;
     private float hauteur;
-
-    private float epaisseur = 0.5f;
-    private float profondeurTympan = 0;
-
+    private float epaisseur;
+    private float profondeurTympan;
     private float marge;
 
     private Node baseNode;
@@ -27,16 +28,17 @@ public class GtRoof extends BlankThing {
     private Node tympanNode;
     private Node tympanNode2;
 
-    public GtRoof(float length, float width, float height){
-        this.longueur = length;
-        this.largeur = width;
-        this.hauteur = height;
-
-        marge = epaisseur;
+    public GtRoof(TempleGrecProperties.Roof prop){
+        this.prop = prop;
     }
 
     public void draw(){
-        //Base Box
+        this.longueur = prop.longueur;
+        this.largeur = prop.largeur;
+        this.hauteur = prop.hauteur;
+        this.epaisseur = prop.epaisseur;
+        this.profondeurTympan = prop.profondeurTympan;
+        this.marge = prop.marge;
 
         baseNode = new Node();
         roofNode = new Node();

@@ -9,21 +9,28 @@ import models.blank.BlankThing;
 
 public class Architrave extends BlankThing {
 
-    private static float default_hauteur = 1;
+    TempleGrecProperties.Architrave prop;
+
     private float largeur;
     private float longueur;
-    private float epaisseur = 0;
-    private float hauteur = default_hauteur;
-    private float ratio = 0.75f;
-    private float marge = hauteur*(1-ratio);
+    private float epaisseur;
+    private float hauteur;
+    private float ratio;
+    private float marge;
 
-    public Architrave(int nbColonnesLarge, int nbColonnesLong, float ecartColonnes){
+    public Architrave(TempleGrecProperties.Architrave prop){
         super();
-        largeur = ecartColonnes*(nbColonnesLarge-0.5f);
-        longueur = ecartColonnes*(nbColonnesLong-0.5f);
+        this.prop = prop;
     }
 
     public void draw(){
+
+        this.largeur = prop.largeur;
+        this.longueur = prop.longueur;
+        this.hauteur = prop.hauteur;
+        this.epaisseur = prop.epaisseur;
+        this.ratio = prop.ratio;
+        this.marge = prop.marge;
 
         if (this.epaisseur == 0) {
             this.drawEpaisseur0();
