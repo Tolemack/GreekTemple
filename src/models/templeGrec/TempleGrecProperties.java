@@ -34,7 +34,7 @@ public class TempleGrecProperties {
         public int nbColonnesLarge = 8;
         public int nbColonnesLong = 10;
         public float ecart_colonnes = 3.0f;
-        public final Colonne colonne = new Colonne(6);
+        public Colonne colonne = new Colonne(6);
 
         public void update() {
             this.nbColonnesLarge = parameters.nbColonnesLarge;
@@ -52,7 +52,7 @@ public class TempleGrecProperties {
         float largeur;
         float longueur;
         float hauteur = 1;
-        float epaisseur = 2;
+        float epaisseur = colonnes.colonne.getLargeurBase();
         float ratio = 0.75f;
         float marge = hauteur*(1-ratio);
 
@@ -69,8 +69,8 @@ public class TempleGrecProperties {
     public class Metope {
         int nbMetopeLong;
         int nbMetopeLarge;
-        float hauteur;
-        float epaisseur = 0;
+        float hauteur = 1;
+        float epaisseur = colonnes.colonne.getLargeurBase();
         float longueurArchitrave;
         float largeurArchitrave;
 
@@ -132,6 +132,11 @@ public class TempleGrecProperties {
         updateAll();
     }
 
+    public void updateColonneSize(float size){
+        this.colonnes.colonne = new Colonne(size);
+        updateAll();
+    }
+
     private void updateAll(){
         soubassement.update();
         colonnes.update();
@@ -142,6 +147,38 @@ public class TempleGrecProperties {
 
     private float computeRoofHeight() {
         return (soubassement.getHauteur()+ colonnes.getHauteur()+ architrave.getHauteur()+ metope.getHauteur())*3/10;
+    }
+
+    public void incrementNbColonnesLarge(){
+        updateNbColonnesLarge(this.parameters.nbColonnesLarge+1);
+    }
+
+    public void decrementNbColonnesLarge(){
+        updateNbColonnesLarge(this.parameters.nbColonnesLarge-1);
+    }
+
+    public void incrementNbColonnesLong(){
+        updateNbColonnesLong(this.parameters.nbColonnesLong+1);
+    }
+
+    public void decrementNbColonnesLong(){
+        updateNbColonnesLong(this.parameters.nbColonnesLong-1);
+    }
+
+    public void incrementNbMarches(){
+        updateNbMarches(this.parameters.nbMarches+1);
+    }
+
+    public void decrementNbMarches(){
+        updateNbMarches(this.parameters.nbMarches-1);
+    }
+
+    public void incrementColonneSize(){
+        updateColonneSize(this.colonnes.colonne.getHauteur()+1);
+    }
+
+    public void decrementColonneSize(){
+        updateColonneSize(this.colonnes.colonne.getHauteur()-1);
     }
 
 }

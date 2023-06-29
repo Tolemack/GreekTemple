@@ -1,5 +1,8 @@
 import com.jme3.app.SimpleApplication;
 
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Quaternion;
@@ -29,6 +32,46 @@ public class HelloJME3 extends SimpleApplication {
     private DirectionalLightShadowRenderer dlsr;
     private DirectionalLightShadowFilter dlsf;
 
+    private TempleGrecProperties templeGrecProperties = new TempleGrecProperties();
+    private TempleGrec templeGrec = new TempleGrec(templeGrecProperties);
+
+    final private ActionListener actionListener = new ActionListener(){
+        @Override
+        public void onAction(String name, boolean pressed, float tpf){
+            System.out.println(name + " = " + pressed);
+            if(pressed) {
+                switch (name) {
+                    case "incrementLarge":
+                        templeGrecProperties.incrementNbColonnesLarge();
+                        break;
+                    case "decrementLarge":
+                        templeGrecProperties.decrementNbColonnesLarge();
+                        break;
+                    case "incrementLong":
+                        templeGrecProperties.incrementNbColonnesLong();
+                        break;
+                    case "decrementLong":
+                        templeGrecProperties.decrementNbColonnesLong();
+                        break;
+                    case "incrementStairs":
+                        templeGrecProperties.incrementNbMarches();
+                        break;
+                    case "decrementStairs":
+                        templeGrecProperties.decrementNbMarches();
+                        break;
+                    case "incrementColSize":
+                        templeGrecProperties.incrementColonneSize();
+                        break;
+                    case "decrementColSize":
+                        templeGrecProperties.decrementColonneSize();
+                        break;
+                }
+                templeGrec.clear();
+                templeGrec.draw();
+            }
+        }
+    };
+
     public static void main(String[] args) {
         HelloJME3 app = new HelloJME3();
         app.start();
@@ -47,14 +90,24 @@ public class HelloJME3 extends SimpleApplication {
                 0)
         );
 
-        /*System.out.println("Frustrum Near "+this.cam.getFrustumNear());
-        System.out.println("Frustrum Far "+this.cam.getFrustumFar());
-        System.out.println("Frustrum Left "+this.cam.getFrustumLeft());
-        System.out.println("Frustrum Right "+this.cam.getFrustumRight());
-        System.out.println("Frustrum Top "+this.cam.getFrustumTop());
-        System.out.println("Frustrum Bottom "+this.cam.getFrustumBottom());*/
-
         this.setLighting();
+
+        inputManager.addMapping("incrementLarge",new KeyTrigger(KeyInput.KEY_NUMPAD6));
+        inputManager.addMapping("decrementLarge",new KeyTrigger(KeyInput.KEY_NUMPAD4));
+        inputManager.addMapping("incrementLong",new KeyTrigger(KeyInput.KEY_NUMPAD8));
+        inputManager.addMapping("decrementLong",new KeyTrigger(KeyInput.KEY_NUMPAD2));
+        inputManager.addMapping("incrementStairs",new KeyTrigger(KeyInput.KEY_NUMPAD7));
+        inputManager.addMapping("decrementStairs",new KeyTrigger(KeyInput.KEY_NUMPAD1));
+        inputManager.addMapping("incrementColSize",new KeyTrigger(KeyInput.KEY_NUMPAD9));
+        inputManager.addMapping("decrementColSize",new KeyTrigger(KeyInput.KEY_NUMPAD3));
+        inputManager.addListener(actionListener, "incrementLarge");
+        inputManager.addListener(actionListener, "decrementLarge");
+        inputManager.addListener(actionListener, "incrementLong");
+        inputManager.addListener(actionListener, "decrementLong");
+        inputManager.addListener(actionListener, "incrementStairs");
+        inputManager.addListener(actionListener, "decrementStairs");
+        inputManager.addListener(actionListener, "incrementColSize");
+        inputManager.addListener(actionListener, "decrementColSize");
     }
 
     private void setScene(){
@@ -66,9 +119,6 @@ public class HelloJME3 extends SimpleApplication {
         SkyboxRoom roomSky = new SkyboxRoom(400,400,400);
         roomSky.putSimpleDummyGrass();
         rootNode.attachChild(roomSky.getNode());
-
-        //random
-        Random random = new Random();
 
         //Scene
 
@@ -117,9 +167,6 @@ public class HelloJME3 extends SimpleApplication {
         rootNode.attachChild(architrave.getNode());*/
 
         //Temple
-        TempleGrec templeGrec = new TempleGrec(
-                new TempleGrecProperties()
-        );
         templeGrec.draw();
         rootNode.attachChild(templeGrec.getNode());
 

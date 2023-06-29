@@ -21,7 +21,7 @@ public class GtMetopeManager extends BlankThing {
     private int nbMetopeLong;
     private int nbMetopeLarge;
     private float hauteur;
-    private float epaisseur = 0;
+    private float epaisseur;
     private float longueurArchitrave;
     private float largeurArchitrave;
 

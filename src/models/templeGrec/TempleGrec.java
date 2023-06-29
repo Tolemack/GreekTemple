@@ -38,6 +38,7 @@ public class TempleGrec extends BlankThing {
 
     public void draw(){
 
+        this.current_hauteur_max = 0;
         this.nbColonnesLarge = prop.parameters.nbColonnesLarge;
         this.nbColonnesLong = prop.parameters.nbColonnesLong;
         this.largeur = prop.parameters.ecart_colonnes*(prop.parameters.nbColonnesLarge-0.5f);
@@ -67,7 +68,6 @@ public class TempleGrec extends BlankThing {
 
     private void drawArchitrave(){
         this.architrave = new Architrave(prop.architrave);
-        this.architrave.setEpaisseur(this.colonneManager.getBaseColonne().getLargeurBase());
         this.architrave.draw();
         this.node.attachChild(architrave.getNode());
         this.architrave.getNode().move(0,this.current_hauteur_max,0);
@@ -76,7 +76,6 @@ public class TempleGrec extends BlankThing {
 
     private void drawMetope(){
         this.metopeManager = new GtMetopeManager(prop.metope);
-        this.metopeManager.setEpaisseur(this.colonneManager.getBaseColonne().getLargeurBase());
         this.metopeManager.draw();
         this.node.attachChild(metopeManager.getNode());
         this.metopeManager.getNode().move(0,this.current_hauteur_max,0);
