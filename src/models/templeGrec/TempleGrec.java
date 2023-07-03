@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TempleGrec extends BlankThing {
 
-    TempleGrecProperties prop;
+    final TempleGrecProperties prop;
 
     public int nbMarches;
     public int nbColonnesLarge;
@@ -24,21 +24,26 @@ public class TempleGrec extends BlankThing {
     private float largeur;
     private float longueur;
 
-    private Soubassement soubassement;
-    private GtColonneManager colonneManager;
-    private Architrave architrave;
-    private GtMetopeManager metopeManager;
-    private GtRoof roof;
+    private final Soubassement soubassement;
+    private final GtColonneManager colonneManager;
+    private final Architrave architrave;
+    private final GtMetopeManager metopeManager;
+    private final GtRoof roof;
 
     private float current_hauteur_max = 0;
 
     public TempleGrec(TempleGrecProperties prop){
         this.prop = prop;
+        this.soubassement = new Soubassement(prop.soubassement);
+        this.colonneManager = new GtColonneManager(prop.colonnes);
+        this.architrave = new Architrave(prop.architrave);
+        this.metopeManager = new GtMetopeManager(prop.metope);
+        this.roof = new GtRoof(prop.roof);
     }
 
     public void draw(){
-
         this.current_hauteur_max = 0;
+
         this.nbColonnesLarge = prop.parameters.nbColonnesLarge;
         this.nbColonnesLong = prop.parameters.nbColonnesLong;
         this.largeur = prop.parameters.ecart_colonnes*(prop.parameters.nbColonnesLarge-0.5f);
@@ -52,45 +57,41 @@ public class TempleGrec extends BlankThing {
     }
 
     private void drawSoubassement(){
-        this.soubassement = new Soubassement(prop.soubassement);
+        this.soubassement.clear();
         this.soubassement.draw();
         this.node.attachChild(soubassement.getNode());
-        this.current_hauteur_max += soubassement.getHauteur();
+        this.current_hauteur_max += prop.soubassement.getHauteur();
     }
 
     private void drawColonnes(){
-        this.colonneManager = new GtColonneManager(prop.colonnes);
+        this.colonneManager.clear();
         this.colonneManager.draw();
         this.node.attachChild(colonneManager.getNode());
         this.colonneManager.getNode().move(0,this.current_hauteur_max,0);
-        this.current_hauteur_max += colonneManager.getHauteur();
+        this.current_hauteur_max += prop.colonnes.getHauteur();
     }
 
     private void drawArchitrave(){
-        this.architrave = new Architrave(prop.architrave);
+        this.architrave.clear();
         this.architrave.draw();
         this.node.attachChild(architrave.getNode());
         this.architrave.getNode().move(0,this.current_hauteur_max,0);
-        this.current_hauteur_max += architrave.getHauteur();
+        this.current_hauteur_max += prop.architrave.getHauteur();
     }
 
     private void drawMetope(){
-        this.metopeManager = new GtMetopeManager(prop.metope);
+        this.metopeManager.clear();
         this.metopeManager.draw();
         this.node.attachChild(metopeManager.getNode());
         this.metopeManager.getNode().move(0,this.current_hauteur_max,0);
-        this.current_hauteur_max += metopeManager.getHauteur();
+        this.current_hauteur_max += prop.metope.getHauteur();
     }
 
     private void drawRoof(){
-        this.roof = new GtRoof(prop.roof);
+        this.roof.clear();
         this.roof.draw();
         this.node.attachChild(roof.getNode());
         this.roof.getNode().move(0,this.current_hauteur_max,0);
-        this.current_hauteur_max += roof.getHauteur();
-    }
-
-    public void setHauteurColonnes(float hauteur){
-        this.colonneManager.setHauteur(hauteur);
+        this.current_hauteur_max += prop.roof.getHauteur();
     }
 }

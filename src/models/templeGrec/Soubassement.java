@@ -8,7 +8,7 @@ import materials.BasicMaterials;
 import models.blank.BlankThing;
 
 public class Soubassement extends BlankThing {
-    TempleGrecProperties.Soubassement prop;
+    final TempleGrecProperties.Soubassement prop;
 
     public Soubassement(TempleGrecProperties.Soubassement prop){
         this.prop = prop;

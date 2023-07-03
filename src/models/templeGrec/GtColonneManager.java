@@ -7,18 +7,20 @@ import models.blank.BlankThing;
 import java.util.ArrayList;
 
 public class GtColonneManager extends BlankThing {
-    TempleGrecProperties.Colonnes prop;
+    final TempleGrecProperties.Colonnes prop;
     private Colonne baseColonne;
-    private ArrayList<Colonne> colonnes;
+    private static ArrayList<Colonne> colonnes = new ArrayList<>();
 
     public GtColonneManager(TempleGrecProperties.Colonnes prop){
         super();
         this.prop = prop;
-        colonnes = new ArrayList<>();
     }
 
     public void draw(){
+        colonnes.removeAll(colonnes);
+
         this.baseColonne = prop.colonne;
+
         int nbColonnesLarge = prop.nbColonnesLarge;
         int nbColonnesLong = prop.nbColonnesLong;
         float ecart_colonnes = prop.ecart_colonnes;
@@ -71,17 +73,5 @@ public class GtColonneManager extends BlankThing {
                             )
                     );
         }
-    }
-
-    public float getHauteur(){
-        return this.baseColonne.getHauteur();
-    }
-
-    public void setHauteur(float hauteur){
-        this.baseColonne.setHauteur(hauteur);
-    }
-
-    public Colonne getBaseColonne() {
-        return this.baseColonne;
     }
 }

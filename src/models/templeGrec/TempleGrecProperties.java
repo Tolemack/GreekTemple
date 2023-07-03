@@ -106,12 +106,12 @@ public class TempleGrecProperties {
         }
     }
 
-    public Parameters parameters = new Parameters();
-    public Soubassement soubassement = new Soubassement();
-    public Colonnes colonnes = new Colonnes();
-    public Architrave architrave = new Architrave();
-    public Metope metope = new Metope();
-    public Roof roof = new Roof();
+    public final Parameters parameters = new Parameters();
+    public final Soubassement soubassement = new Soubassement();
+    public final Colonnes colonnes = new Colonnes();
+    public final Architrave architrave = new Architrave();
+    public final Metope metope = new Metope();
+    public final Roof roof = new Roof();
 
     public TempleGrecProperties(){
         updateAll();

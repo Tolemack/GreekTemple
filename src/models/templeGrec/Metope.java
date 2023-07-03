@@ -13,12 +13,12 @@ import models.blank.BlankThing;
 
 public class Metope extends BlankThing {
 
-    private static float default_depth = (float)1/3;
+    private final static float default_depth = (float)1/3;
     private float largeur;
     private float hauteur;
     private float profondeur = (float)0.125f;
 
-    private Node baseNodeMesh;
+    private Node baseNodeMesh = new Node();;
 
     public Metope(float width, float height){
         this.largeur = width;
@@ -28,7 +28,7 @@ public class Metope extends BlankThing {
     }
 
     private void createBaseNodeMesh(){
-        baseNodeMesh = new Node();
+        this.baseNodeMesh.detachAllChildren();
 
         Mesh mesh1 = new Mesh();
         Mesh mesh2 = new Mesh();
@@ -154,13 +154,13 @@ public class Metope extends BlankThing {
 
         this.baseNodeMesh.attachChild(geo1);
         //this.baseNodeMesh.attachChild(geo2);
-        this.baseNodeMesh.scale((float)1/24*this.largeur,1,1);
+        this.baseNodeMesh.setLocalScale((float)1/24*this.largeur,1,1);
 
         this.baseNodeMesh.getChild("Metope1")
                 .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         //this.baseNodeMesh.getChild("Metope2")
         //        .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-        this.baseNodeMesh.move(new Vector3f(-this.largeur/2,0,0));
+        this.baseNodeMesh.setLocalTranslation(new Vector3f(-this.largeur/2,0,0));
 
         this.node.attachChild(this.baseNodeMesh);
 
@@ -183,15 +183,7 @@ public class Metope extends BlankThing {
         return profondeur;
     }
 
-    public void setProfondeur(float profondeur) {
-        this.profondeur = profondeur;
-    }
-
     public float getHauteur() {
         return hauteur;
-    }
-
-    public void setHauteur(float hauteur) {
-        this.hauteur = hauteur;
     }
 }

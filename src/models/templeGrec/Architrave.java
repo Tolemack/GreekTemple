@@ -9,7 +9,7 @@ import models.blank.BlankThing;
 
 public class Architrave extends BlankThing {
 
-    TempleGrecProperties.Architrave prop;
+    final TempleGrecProperties.Architrave prop;
 
     private float largeur;
     private float longueur;

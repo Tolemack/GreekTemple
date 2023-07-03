@@ -32,7 +32,7 @@ public class BlankRoom3 extends BlankThing{
         this.height = height;
         this.width = width;
 
-        node = new Node("BlankRoom");
+        this.node.detachAllChildren();
 
         BlankRoomWall roof = new BlankRoomWall("roof",
                 new BlankWall(length, width));
@@ -95,7 +95,7 @@ public class BlankRoom3 extends BlankThing{
 
     public void draw(){
         //Création du Node Principal
-        node = new Node("BlankRoom");
+        this.node.detachAllChildren();
 
         //Draw walls
         for(BlankRoomWall brw : this.roomWalls.values()){

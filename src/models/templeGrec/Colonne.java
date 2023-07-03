@@ -98,36 +98,7 @@ public class Colonne extends BlankThing {
         return hauteur;
     }
 
-    public void setHauteur(float hauteur) {
-        if(hauteurChapFixe){
-            this.ratio_chapiteau = this.getHauteurChapiteau()/hauteur;
-        }
-        this.hauteur = hauteur;
-    }
-
     public float getLargeurBase() {
         return largeur_base;
-    }
-
-    public void setLargeurBase(float largeurBase) {
-        this.largeur_base = largeurBase;
-    }
-
-    public float getRatioChapiteau() {
-        return ratio_chapiteau;
-    }
-
-    public void setRatioChapiteau(float ratioChapiteau) {
-        this.ratio_chapiteau = ratioChapiteau;
-        this.hauteurChapFixe = false;
-    }
-
-    public void setHauteurChapiteau(float hauteurChapiteau){
-        this.ratio_chapiteau = hauteurChapiteau/this.hauteur;
-        this.hauteurChapFixe = true;
-    }
-
-    public float getHauteurChapiteau(){
-        return this.hauteur*this.ratio_chapiteau;
     }
 }

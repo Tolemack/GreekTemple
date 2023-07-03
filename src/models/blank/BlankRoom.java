@@ -33,7 +33,7 @@ public class BlankRoom extends BlankThing{
         this.height = height;
         this.width = width;
 
-        node = new Node("BlankRoom");
+        this.node.detachAllChildren();
 
         //Boxes
         Box h1Box = new Box(length/2, wall_thickness/2, width/2);

@@ -113,7 +113,7 @@ public class HelloJME3 extends SimpleApplication {
     private void setScene(){
         //Load Materials
         BasicMaterials basicMaterials = new BasicMaterials(this.getAssetManager());
-        basicMaterials.setTempleRandom();
+        //basicMaterials.setTempleBlue();
 
         //Skybox
         SkyboxRoom roomSky = new SkyboxRoom(400,400,400);

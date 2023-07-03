@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class GtMetopeManager extends BlankThing {
 
-    TempleGrecProperties.Metope prop;
+    final TempleGrecProperties.Metope prop;
 
-    private ArrayList<Metope> metopes;
-    private Node metopeBox;
+    private static ArrayList<Metope> metopes = new ArrayList<>();;
+    private static Node metopeBox = new Node();
 
     private int nbMetopeLong;
     private int nbMetopeLarge;
@@ -31,7 +31,8 @@ public class GtMetopeManager extends BlankThing {
 
     public void draw(){
 
-        this.metopes = new ArrayList<>();
+        this.metopeBox.detachAllChildren();
+        this.metopes.removeAll(metopes);
 
         this.nbMetopeLong = prop.nbMetopeLong;
         this.nbMetopeLarge = prop.nbMetopeLarge;
@@ -107,7 +108,6 @@ public class GtMetopeManager extends BlankThing {
     }
 
     private void drawMetopeBoxEpaisseur0(){
-        this.metopeBox = new Node();
         float profondeurMetope = this.metopes.get(0).getProfondeur();
         float hauteur_metope = this.metopes.get(0).getHauteur();
         Box metopeBoxB = new Box(
@@ -130,7 +130,6 @@ public class GtMetopeManager extends BlankThing {
     }
 
     private void drawMetopeBoxEpaisseur1(){
-        this.metopeBox = new Node();
         float profondeurMetope = this.metopes.get(0).getProfondeur();
         float hauteur_metope = this.metopes.get(0).getHauteur();
 
@@ -208,21 +207,5 @@ public class GtMetopeManager extends BlankThing {
                 .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
         this.node.attachChild(this.metopeBox);
-    }
-
-    public float getHauteur() {
-        return hauteur;
-    }
-
-    public void setHauteur(float hauteur) {
-        this.hauteur = hauteur;
-    }
-
-    public float getEpaisseur() {
-        return epaisseur;
-    }
-
-    public void setEpaisseur(float epaisseur) {
-        this.epaisseur = epaisseur;
     }
 }

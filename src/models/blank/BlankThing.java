@@ -12,17 +12,11 @@ import materials.BasicMaterials;
 import java.util.Random;
 
 public class BlankThing {
-    public Node node;
-    Material blankUnshaded;
-    Material blankShaded;
+    public final Node node  = new Node("Thing");
+    Material blankUnshaded = BasicMaterials.blankUnshaded;
+    Material blankShaded = BasicMaterials.blankShaded;
 
-    public BlankThing(){
-        this.node = new Node("Thing");
-
-        this.blankUnshaded = BasicMaterials.blankUnshaded;
-
-        this.blankShaded = BasicMaterials.blankShaded;
-    }
+    public BlankThing() {}
 
     public Node getNode() {
         return node;
@@ -59,6 +53,8 @@ public class BlankThing {
 
     public void clear(){
         this.node.detachAllChildren();
+        this.node.setLocalTranslation(0,0,0);
+        this.node.updateModelBound();
     }
 
 }

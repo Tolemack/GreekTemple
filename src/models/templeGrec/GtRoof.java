@@ -14,7 +14,7 @@ import models.blank.BlankThing;
 
 public class GtRoof extends BlankThing {
 
-    TempleGrecProperties.Roof prop;
+    final TempleGrecProperties.Roof prop;
 
     private float longueur;
     private float largeur;
@@ -23,27 +23,27 @@ public class GtRoof extends BlankThing {
     private float profondeurTympan;
     private float marge;
 
-    private Node baseNode;
-    private Node roofNode;
-    private Node tympanNode;
-    private Node tympanNode2;
+    private static Node baseNode = new Node();
+    private static Node roofNode = new Node();
+    private static Node tympanNode = new Node();
+    private static Node tympanNode2 = new Node();
 
     public GtRoof(TempleGrecProperties.Roof prop){
         this.prop = prop;
     }
 
     public void draw(){
+        this.baseNode.detachAllChildren();
+        this.roofNode.detachAllChildren();
+        this.tympanNode.detachAllChildren();
+        this.tympanNode2.detachAllChildren();
+
         this.longueur = prop.longueur;
         this.largeur = prop.largeur;
         this.hauteur = prop.hauteur;
         this.epaisseur = prop.epaisseur;
         this.profondeurTympan = prop.profondeurTympan;
         this.marge = prop.marge;
-
-        baseNode = new Node();
-        roofNode = new Node();
-        tympanNode = new Node();
-        tympanNode2 = new Node();
 
         this.drawBaseBox();
         this.drawRoof();
@@ -86,12 +86,12 @@ public class GtRoof extends BlankThing {
         Geometry geo1 = new Geometry("tympan", mesh1);
         geo1.setMaterial(BasicMaterials.templeGrecBleu);
         this.tympanNode.attachChild(geo1);
-        this.tympanNode.scale(largeur+2*marge,hauteur,1);
+        this.tympanNode.setLocalScale(largeur+2*marge,hauteur,1);
 
         this.tympanNode.getChild("tympan")
                 .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
-        this.tympanNode.move(new Vector3f(
+        this.tympanNode.setLocalTranslation(new Vector3f(
                 -largeur/2-marge,
                 epaisseur,
                 -longueur/2+profondeurTympan
@@ -108,7 +108,7 @@ public class GtRoof extends BlankThing {
         roofNode.attachChild(roof.getNode());
         roof.getNode().setMaterial(BasicMaterials.templeGrecPaleYellow);
         roof.getNode().setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-        this.roofNode.move(new Vector3f(0,epaisseur,0));
+        this.roofNode.setLocalTranslation(new Vector3f(0,epaisseur,0));
     }
 
     public void drawBaseBox(){
@@ -194,7 +194,7 @@ public class GtRoof extends BlankThing {
         this.tympanNode2.getChild("tympanFront")
                 .setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 
-        this.tympanNode2.move(0,epaisseur, -longueur/2);
+        this.tympanNode2.setLocalTranslation(0,epaisseur, -longueur/2);
     }
 
     public void drawTympan2(){
