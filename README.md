@@ -1,7 +1,8 @@
 # GreekTemple
 
 This program use JMonkey engine to generate a 3D Model of a greek temple.
-Input to modify the temple :
+
+Inputs to modify the temple :
 * Change Width : 4 - 6
 * Change Depth : 2 - 8
 * Change Number of Stairs : 1 - 7
